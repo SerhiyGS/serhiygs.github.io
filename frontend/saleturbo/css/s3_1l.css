@@ -1,17 +1,18 @@
 @media (orientation: landscape) {
 #stage3_1 {
+	margin-top: 2px;
 	width: 81%;
 	height: 83%;
 	/*display: flex;*/
 	flex-direction: column;
-	/*border: 1px solid red;*/
+/*	border: 1px solid gold;*/
 }
 
 
 
 
 #blok1_stage3_1 {
-	margin-top: 40px;
+	margin-top: 36px;
 	text-align: center;
 
 	font-family: "Roboto";
@@ -22,7 +23,7 @@
 }
 
 #p1_stage3_1 {
-	margin-top: 20px;
+	margin-top: 17px;
 	text-align: center;
 	font-family: "Roboto";
 	font-weight: 500;
@@ -33,22 +34,35 @@
 
 #blok2_stage3_1 {
 	margin-top: 25px;
+	height: 78%;
+
 	display: flex;
 	flex-wrap: wrap;
+	align-items: flex-start;
+	/*align-content: flex-start;*/
 	gap:20px;
-	/*border: 1px solid green;*/
+
+/*border: 1px solid;*/
+
 }
 
-#tip1_blok2_stage3_1, #tip2_blok2_stage3_1, #tip3_blok2_stage3_1{
+#tip1_blok2_stage3_1,
+#tip2_blok2_stage3_1,
+#tip3_blok2_stage3_1{
 	flex:1;
-	padding: 15px;
+
+height: 100%;
+
+padding: 15px 15px 5px 15px;
 	display: flex;
 	flex-direction: column;
 	border: 1px solid rgba(10,100,100,0.5);
 	border-radius: 5px;
 }
 
-#div1_tip1,#div1_tip2,#div1_tip3{
+#div1_tip1,
+#div1_tip2,
+#div1_tip3{
 	margin-top: -5px;
 	margin-left: -5px;
 
@@ -65,7 +79,9 @@
 	background-color:rgba(64, 174, 227, 1);
 }
 
-#div2_tip1,#div2_tip2,#div2_tip3{
+#div2_tip1,
+#div2_tip2,
+#div2_tip3{
 	align-self: flex-end;
 	margin-top: -15px;
 	margin-bottom: 25px;
@@ -92,6 +108,56 @@
 	width: 100%;
 	height: 100%;
 }
+
+
+#div4_tip1,
+#div4_tip2,
+#div4_tip3{
+
+	min-height: 50px;
+	overflow-y: auto;
+/*border: 1px solid red;*/
+}
+#div4_tip1::-webkit-scrollbar,
+#div4_tip2::-webkit-scrollbar,
+#div4_tip3::-webkit-scrollbar{
+	width: 0.5em;
+}
+#div4_tip1::-webkit-scrollbar-thumb,
+#div4_tip2::-webkit-scrollbar-thumb,
+#div4_tip3::-webkit-scrollbar-thumb
+{
+	background-color: transparent;
+}
+#div4_tip1::-webkit-scrollbar-track,
+#div4_tip2::-webkit-scrollbar-track,
+#div4_tip3::-webkit-scrollbar-track{
+	background-color: transparent;
+}
+
+
+
+
+
+
+#btn1_karusel,
+#btn2_karusel,
+#btn3_karusel{
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+/*	border: 1px solid red;*/
+}
+
+
+
+
+
+
+
+
 
 
 #span_div2_tip1,#span_div2_tip2,#span_div2_tip3{
