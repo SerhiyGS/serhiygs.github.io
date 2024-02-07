@@ -96,6 +96,16 @@ const pusto4 = qE('#pusto4');
 
 const stage3_3 = qE('#stage3_3');
 const substage3_3 = qE('#substage3_3');
+const p_substage3_3 = qE('#p_substage3_3');
+const block_substage3_3 = qE('#block_substage3_3');
+const block1_block_substage3_3 = qE('#block1_block_substage3_3');
+const block1_block1_block_substage3_3 = qE('#block1_block1_block_substage3_3');
+const mishok = qE('#mishok');
+const mishok_content = qE('#mishok_content');
+const block2_block1_block_substage3_3 = qE('#block2_block1_block_substage3_3');
+const block2_block_substage3_3 = qE('#block2_block_substage3_3');
+
+
 
 
 
@@ -353,10 +363,10 @@ const AutoHod = () => {
 			gE('next_btn').click();//На сторінку 3_1
 			setTimeout(() => {
 				gE('next_btn').click();//На сторінку 3_2
-				/*
 				setTimeout(() => {
+					gE('next_btn').click();//На сторінку 3_3
+				/*
 
-										gE('next_btn').click();
 										setTimeout(() => {
 											gE('next_btn').click();
 											setTimeout(() => {
@@ -366,8 +376,9 @@ const AutoHod = () => {
 												}, 1000);
 											}, 1000);
 										}, 1000);
-				}, 1000);
-				*/
+*/
+				}, 2000);
+
 			}, 2000);
 		}, 2000);
 	}, 2000);
@@ -382,7 +393,7 @@ window.onload = () => {
 	SetPageSize();
 	fadeIn(stage1);
 
-	//AutoHod();
+//	AutoHod();
 }
 window.onresize = () => {
 	SetPageSize();
@@ -697,6 +708,20 @@ next_btn.onclick = () => {
 					stage3_3.style.display = 'flex';
 					fadeIn(stage3_3);
 					next_btn.style.background = `url('./images/next3_3.svg') center/cover no-repeat`;
+					// --------------------------------------------------------------------------------------------------------------------
+					if (isMobileDevice()) {
+						p_substage3_3.style.marginTop = `25px`;
+						block_substage3_3.style.marginTop = `25px`;
+						block_substage3_3.style.width = `326px`;
+						block_substage3_3.style.height = `403px`;
+						block2_block1_block_substage3_3.style.width = `294px`;
+						block2_block1_block_substage3_3.style.height = `48px`;
+						block2_block_substage3_3.marginTop = `30px`;
+						block2_block_substage3_3.style.width = `252px`;
+						block2_block_substage3_3.style.height= `283px`;
+					} else {
+					}
+					// --------------------------------------------------------------------------------------------------------------------
 				}, 500);
 			}
 			else if (window.getComputedStyle(gE('stage3_3')).display == 'flex') {// Show STAGE4 after click on STAGE3_3
@@ -707,6 +732,13 @@ next_btn.onclick = () => {
 					stage4.style.display = 'flex';
 					fadeIn(stage4);
 					next_btn.style.background = `url('./images/next4.svg') center/cover no-repeat`;
+					// --------------------------------------------------------------------------------------------------------------------
+					if (isMobileDevice()) {
+
+					} else {
+
+					}
+					// --------------------------------------------------------------------------------------------------------------------
 				}, 500);
 			}
 			else if (window.getComputedStyle(gE('stage4')).display == 'flex') {// Show STAGE5 after click on STAGE4
@@ -717,6 +749,13 @@ next_btn.onclick = () => {
 					stage5.style.display = 'flex';
 					fadeIn(stage5);
 					next_btn.style.background = `url('./images/next5.svg') center/cover no-repeat`;
+					// --------------------------------------------------------------------------------------------------------------------
+					if (isMobileDevice()) {
+
+					} else {
+
+					}
+					// --------------------------------------------------------------------------------------------------------------------
 				}, 500);
 			}
 		}
