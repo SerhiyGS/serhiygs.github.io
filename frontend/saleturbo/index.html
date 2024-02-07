@@ -7,72 +7,34 @@
 	<title>SaleTurbo</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" disabled="true" />
-
 	<link rel="stylesheet" href="./css/style.css" cache-control="no-cache">
-
-	<link rel="stylesheet" href="./css/s1l.css" cache-control="no-cache">
-	<link rel="stylesheet" href="./css/s1p.css" cache-control="no-cache">
-
-	<link rel="stylesheet" href="./css/s2l.css" cache-control="no-cache">
-	<link rel="stylesheet" href="./css/s2p.css" cache-control="no-cache">
-
-	<link rel="stylesheet" href="./css/s3_1l.css" cache-control="no-cache">
-	<link rel="stylesheet" href="./css/s3_1p.css" cache-control="no-cache">
-
+	<script src="./js/karusel.js" defer cache-control="no-cache"></script>
 	<script src="./js/script.js" defer cache-control="no-cache"></script>
-
-	<style></style>
-
 </head>
 <body>
-	<span style="position: absolute;">Ver.2.0 from 31.01.2024</span>
+	<span style="position: absolute; top:0; background-color: transparent; z-index: 10; color: maroon; font-weight: bolder;">4 pages are ready. Work continues!
+	Ver.3.0 from 02/06/2024</span>
 	<div id="container">
 		<header>
-			<img src="./images/logo.png" alt="saleturbo.com" class="logosize">
+			<div id="label">&nbsp;</div>
 		</header>
+		<main>
+			<div id="indicators"></div>
 
-		<main id="id_main">
-<!--
-&#10003;
--->
-
-			<div id="indicators">
-<!--
-				<div id="punkt1" class="punkts">1</div>
-				<div id="ryska1" class="ryska"></div>
-
-				<div id="punkt2" class="punkts">2</div>
-				<div id="ryska2" class="ryska"></div>
-
-				<div id="punkt3" class="punkts">3</div>
-				<div id="ryska3">
-					<div id="ryska3_1" class="ryska rcommon"></div>
-					<div id="ryska3_2" class="ryska rcommon"></div>
-					<div id="ryska3_3" class="ryska rcommon"></div>
-				</div>
-
-				<div id="punkt4" class="punkts">4</div>
-				<div id="ryska4" class="ryska"></div>
-
-				<div id="punkt5" class="punkts">5</div>
--->
-
-			</div>
-
-			<!-- --------------------------------------------------------------------------  -->
 			<div id="stage1" class="stage hovanka">
-
-				<div id="substage1">
+				<div id="substage1" class="substage">
 
 					<div id="blok1_stage1">Let's get you started!</div>
 
 					<div id="blok2_stage1">
 						<p id="p_blok2_stage1">How many devices are you aiming to buy monthly?<span class="zirka">&nbsp;*</span></p>
+
 						<select id="select_blok2_stage1">
 							<option value="1">1-5</option>
 							<option value="2">6-10</option>
@@ -82,21 +44,26 @@
 					</div>
 
 					<div id="blok3_stage1">
-						<p id="p_blok3_stage1">Do you currently use online marketplaces to purchase devices for resale?<span class="zirka">*</span></p>
+						<p id="p_blok3_stage1">Do you currently use online marketplaces to purchase devices for resale?<span
+								class="zirka">*</span></p>
 
-						<div class="opros">
-							<span><input type="radio" name="opros" value="1" id="opros1" onclick="OprosClick()"></span>
-							<label for="opros1">Yes, I regularly use eBay.</label>
+						<div class="opros-div">
+							<label class="opros-label" for="opros1" onclick="toggleCheckedState(this, 'opros-label')">
+								<input id="opros1" class="opros-input" type="radio" name="opros" value="1" onclick="OprosClick()">Yes, I regularly
+								use eBay.
+							</label>
 						</div>
-
-						<div class="opros">
-							<span><input type="radio" name="opros" value="2" id="opros2" onclick="OprosClick()"></span>
-							<label for="opros2">Yes, but I use other marketplaces besides eBay.</label>
+						<div class="opros-div">
+							<label class="opros-label" for="opros2" onclick="toggleCheckedState(this, 'opros-label')">
+								<input id="opros2" class="opros-input" type="radio" name="opros" value="2" onclick="OprosClick()">Yes, but I use
+								other marketplaces besides eBay.
+							</label>
 						</div>
-
-						<div class="opros opros_nyz">
-							<span><input type="radio" name="opros" value="3" id="opros3" onclick="OprosClick()"></span>
-							<label for="opros3">No, I haven’t used online marketplaces for purchasing devices.</label>
+						<div class="opros-div">
+							<label class="opros-label" for="opros3" onclick="toggleCheckedState(this, 'opros-label')">
+								<input id="opros3" class="opros-input" type="radio" name="opros" value="3" onclick="OprosClick()">No, I haven’t
+								used online marketplaces for purchasing devices.
+							</label>
 						</div>
 
 					</div>
@@ -105,104 +72,148 @@
 						<p id="p1_blok4_stage1">Enter the zipcode of your USA shipping address:</p>
 						<p id="p2_blok4_stage1">(optional)</p>
 						<input type="text" name="zipcode" id="zipcode" placeholder="Enter zipcode">
-
 					</div>
+
+
+
+
+
+
 				</div>
 			</div>
-			<!-- --------------------------------------------------------------------------  -->
+
 			<div id="stage2" class="stage hovanka">
 
-				<div id="blok1_stage2">Select Your Preferences</div>
+				<div id="substage2" class="substage">
 
-				<p id="p1_stage2">We'll use this for quick setup.<br>You'll be able to fully modify your settings later on.</p>
+					<div id="block_head">
 
-				<div id="blok2_stage2">
-					<p id="p_blok2_stage2">Network&nbsp;<span	class="zirka">*</span></p>
+						<div id="blok1_stage2">Select Your Preferences</div>
 
-					<div class="network">
-						<span><input type="radio" name="network" value="1" id="network1" onclick="NetworkClick()"></span>
-						<label for="network1">Any network</label>
+						<p id="p1_stage2">We'll use this for quick setup.<br>You'll be able to fully modify your settings later on.</p>
+
+						<div id="blok2_stage2">
+							<p id="p_blok2_stage2">Network&nbsp;&nbsp;<span class="zirka">*</span></p>
+
+							<div class="network-div">
+								<label class="network-label" for="network1" onclick="toggleCheckedState(this, 'network-label')">
+									<input id="network1" class="network-input" type="radio" name="network" value="1" onclick="NetworkClick()">Any network
+								</label>
+							</div>
+
+							<div class="network-div">
+								<label class="network-label" for="network2" onclick="toggleCheckedState(this, 'network-label')">
+									<input id="network2" class="network-input" type="radio" name="network" value="2" onclick="NetworkClick()">Unlocked Only
+								</label>
+							</div>
+
+						</div>
+
+						<p id="p2_stage2">Start with up to 6 models for your initial deal alerts:<span class="zirka">*</span></p>
 					</div>
-
-					<div class="network">
-						<span><input type="radio" name="network" value="2" id="network2" onclick="NetworkClick()"></span>
-						<label for="network2">Unlocked Only</label>
-					</div>
-
-				</div>
-
-				<p id="p2_stage2">Start with up to 6 models for your initial deal alerts:<span class="zirka">*</span></p>
-
-				<div id="blok3_stage2">
 
 					<div id="spysok">
+						<!--
+						<div id="pusto1" style="position: sticky; top: 0; width: 100%; height: 2dvh; border: 1px solid red;"></div>
+-->
+						<div class="models-div">
+							<label class="models-label" for="model1" onclick="StateCheckBox(this, 'models-label')">
+								<input id="model1" class="models-input" type="checkbox" name="models" value="iPhone 4" onclick="NetworkClick(this)">
+								iPhone 4
+							</label>
+						</div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 4" id="model1" onclick="NetworkClick(this)"><label for="model1" class="label_models">iPhone 4</label></span>
+						<div class="models-div"><label class="models-label" for="model2" onclick="StateCheckBox(this, 'models-label')"><input id="model2" class="models-input" type="checkbox" name="models" value="iPhone 5" onclick="NetworkClick(this)">iPhone 5</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 5" id="model2" onclick="NetworkClick(this)"><label for="model2" class="label_models">iPhone 5</label></span>
+						<div class="models-div"><label class="models-label" for="model3" onclick="StateCheckBox(this, 'models-label')"><input id="model3" class="models-input" type="checkbox" name="models" value="iPhone 6" onclick="NetworkClick(this)">iPhone 6</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 6" id="model3" onclick="NetworkClick(this)"><label for="model3" class="label_models">iPhone 6</label></span>
+						<div class="models-div"><label class="models-label" for="model4" onclick="StateCheckBox(this, 'models-label')"><input id="model4" class="models-input" type="checkbox" name="models" value="iPhone 6 Plus" onclick="NetworkClick(this)">iPhone 6 Plus</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 6 Plus" id="model4" onclick="NetworkClick(this)"><label for="model4" class="label_models">iPhone 6 Plus</label></span>
+						<div class="models-div"><label class="models-label" for="model5" onclick="StateCheckBox(this, 'models-label')"><input id="model5" class="models-input" type="checkbox" name="models" value="iPhone 6s" onclick="NetworkClick(this)">iPhone 6s</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 6s" id="model5" onclick="NetworkClick(this)"><label for="model5" class="label_models">iPhone 6s</label></span>
+						<div class="models-div"><label class="models-label" for="model6" onclick="StateCheckBox(this, 'models-label')"><input id="model6" class="models-input" type="checkbox" name="models" value="iPhone 6s Plus" onclick="NetworkClick(this)">iPhone 6s Plus</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 6s Plus" id="model6" onclick="NetworkClick(this)"><label for="model6" class="label_models">iPhone 6s Plus</label></span>
+						<div class="models-div"><label class="models-label" for="model7" onclick="StateCheckBox(this, 'models-label')"><input id="model7" class="models-input" type="checkbox" name="models" value="iPhone 7" onclick="NetworkClick(this)">iPhone 7</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 7" id="model7" onclick="NetworkClick(this)"><label for="model7" class="label_models">iPhone 7</label></span>
+						<div class="models-div"><label class="models-label" for="model8" onclick="StateCheckBox(this, 'models-label')"><input id="model8" class="models-input" type="checkbox" name="models" value="iPhone 7 Plus" onclick="NetworkClick(this)">iPhone 7 Plus</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 7 Plus" id="model8" onclick="NetworkClick(this)"><label for="model8" class="label_models">iPhone 7 Plus</label></span>
+						<div class="models-div"><label class="models-label" for="model9" onclick="StateCheckBox(this, 'models-label')"><input id="model9" class="models-input" type="checkbox" name="models" value="iPhone 8" onclick="NetworkClick(this)">iPhone 8</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 8" id="model9" onclick="NetworkClick(this)"><label for="model9" class="label_models">iPhone 8</label></span>
+						<div class="models-div"><label class="models-label" for="model10" onclick="StateCheckBox(this, 'models-label')"><input id="model10" class="models-input" type="checkbox" name="models" value="iPhone 11" onclick="NetworkClick(this)">iPhone 11</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 11" id="model10" onclick="NetworkClick(this)"><label for="model10" class="label_models">iPhone 11</label></span>
+						<div class="models-div"><label class="models-label" for="model11" onclick="StateCheckBox(this, 'models-label')"><input id="model11" class="models-input" type="checkbox" name="models" value="iPhone 11 Pro" onclick="NetworkClick(this)">iPhone 11 Pro</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 11 Pro" id="model11" onclick="NetworkClick(this)"><label for="model11" class="label_models">iPhone 11 Pro</label></span>
+						<div class="models-div"><label class="models-label" for="model12" onclick="StateCheckBox(this, 'models-label')"><input id="model12" class="models-input" type="checkbox" name="models" value="iPhone 11 Pro Max" onclick="NetworkClick(this)">iPhone 11 Pro Max</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 11 Pro Max" id="model12" onclick="NetworkClick(this)"><label for="model12" class="label_models">iPhone 11 Pro Max</label></span>
+						<div class="models-div"><label class="models-label" for="model13" onclick="StateCheckBox(this, 'models-label')"><input id="model13" class="models-input" type="checkbox" name="models" value="iPhone 12 mini" onclick="NetworkClick(this)">iPhone 12 mini</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 12 mini" id="model13" onclick="NetworkClick(this)"><label for="model13" class="label_models">iPhone 12 mini</label></span>
+						<div class="models-div"><label class="models-label" for="model14" onclick="StateCheckBox(this, 'models-label')"><input id="model14" class="models-input" type="checkbox" name="models" value="iPhone 12" onclick="NetworkClick(this)">iPhone 12</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 12" id="model14" onclick="NetworkClick(this)"><label for="model14" class="label_models">iPhone 12</label></span>
+						<div class="models-div"><label class="models-label" for="model15" onclick="StateCheckBox(this, 'models-label')"><input id="model15" class="models-input" type="checkbox" name="models" value="iPhone 12 Pro" onclick="NetworkClick(this)">iPhone 12 Pro</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 12 Pro" id="model15" onclick="NetworkClick(this)"><label for="model15" class="label_models">iPhone 12 Pro</label></span>
+						<div class="models-div"><label class="models-label" for="model16" onclick="StateCheckBox(this, 'models-label')"><input id="model16" class="models-input" type="checkbox" name="models" value="iPhone 12 Pro Max" onclick="NetworkClick(this)">iPhone 12 Pro Max</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 12 Pro Max" id="model16" onclick="NetworkClick(this)"><label for="model16" class="label_models">iPhone 12 Pro Max</label></span>
+						<div class="models-div"><label class="models-label" for="model17" onclick="StateCheckBox(this, 'models-label')"><input id="model17" class="models-input" type="checkbox" name="models" value="iPhone 14" onclick="NetworkClick(this)">iPhone 14</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 14" id="model17" onclick="NetworkClick(this)"><label for="model17" class="label_models">iPhone 14</label></span>
+						<div class="models-div"><label class="models-label" for="model18" onclick="StateCheckBox(this, 'models-label')"><input id="model18" class="models-input" type="checkbox" name="models" value="iPhone 14 Plus" onclick="NetworkClick(this)">iPhone 14 Plus</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 14 Plus" id="model18" onclick="NetworkClick(this)"><label for="model18" class="label_models">iPhone 14 Plus</label></span>
+						<div class="models-div"><label class="models-label" for="model19" onclick="StateCheckBox(this, 'models-label')"><input id="model19" class="models-input" type="checkbox" name="models" value="iPhone 14 Max" onclick="NetworkClick(this)">iPhone 14 Max</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 14 Max" id="model19" onclick="NetworkClick(this)"><label for="model19" class="label_models">iPhone 14 Max</label></span>
+						<div class="models-div"><label class="models-label" for="model20" onclick="StateCheckBox(this, 'models-label')"><input id="model20" class="models-input" type="checkbox" name="models" value="iPhone 14 Pro" onclick="NetworkClick(this)">iPhone 14 Pro</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 14 Pro" id="model20" onclick="NetworkClick(this)"><label for="model20" class="label_models">iPhone 14 Pro</label></span>
+						<div class="models-div"><label class="models-label" for="model21" onclick="StateCheckBox(this, 'models-label')"><input id="model21" class="models-input" type="checkbox" name="models" value="iPhone 14 Pro Max" onclick="NetworkClick(this)">iPhone 14 Pro Max</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone 14 Pro Max" id="model21" onclick="NetworkClick(this)"><label for="model21" class="label_models">iPhone 14 Pro Max</label></span>
+						<div class="models-div"><label class="models-label" for="model22" onclick="StateCheckBox(this, 'models-label')"><input id="model22" class="models-input" type="checkbox" name="models" value="iPhone SE 2022" onclick="NetworkClick(this)">iPhone SE 2022</label></div>
 
-						<span class="span_models"><input type="checkbox" name="models" value="iPhone SE 2022" id="model22" onclick="NetworkClick(this)"><label for="model22" class="label_models">iPhone SE 2022</label></span>
+						<p id="p3_stage2">0/6 selected</p>
+						<p id="p4_stage2">What condition?&nbsp;<span class="zirka">*</span></p>
+
+						<div class="condition-div">
+							<label class="condition-label" for="condition1" onclick="toggleCheckedState(this, 'condition-label')">
+								<input id="condition1" class="condition-input" type="radio" name="condition" value="1" onclick="NetworkClick()">Fully functional, no damage
+							</label>
+						</div>
+
+						<div class="condition-div">
+							<label class="condition-label" for="condition2" onclick="toggleCheckedState(this, 'condition-label')">
+								<input id="condition2" class="condition-input" type="radio" name="condition" value="2" onclick="NetworkClick()">Fully functional, including cracked
+							</label>
+						</div>
+
+
+						<div class="condition-div">
+							<label class="condition-label" for="condition3" onclick="toggleCheckedState(this, 'condition-label')">
+								<input id="condition3" class="condition-input" type="radio" name="condition" value="3" onclick="NetworkClick()">Fully functional + Bad ESN
+							</label>
+						</div>
+
+
+						<div class="condition-div">
+							<label class="condition-label" for="condition4" onclick="toggleCheckedState(this, 'condition-label')">
+								<input id="condition4" class="condition-input" type="radio" name="condition" value="4" onclick="NetworkClick()">Fully functional, including	cracked + Bad ESN
+							</label>
+						</div>
+
+						<div class="condition-div">
+							<label class="condition-label" for="condition5" onclick="toggleCheckedState(this, 'condition-label')">
+								<input id="condition5" class="condition-input" type="radio" name="condition" value="5" onclick="NetworkClick()">Phones for Parts (iCloud + Cracked + Bad ESN)
+							</label>
+						</div>
+
+						<div id="pusto2" style="width: 100%; height: 10dvh;"></div>
 
 					</div>
 
-				</div>
-				<p id="p3_stage2">0/6 selected</p>
-
-				<div id="blok4_stage2">
-					<p id="p4_stage2">What condition?&nbsp;<span class="zirka">*</span></p>
-					<span class="span_condition"><input type="radio" name="condition" id="condition1" class="radio_condition" value="1" onclick="NetworkClick()"><label for="condition1" class="label_condition">Fully functional, no damage</label></span>
-					<span class="span_condition"><input type="radio" name="condition" id="condition2" class="radio_condition" value="2" onclick="NetworkClick()"><label for="condition2" class="label_condition">Fully functional, including cracked</label></span>
-					<span class="span_condition"><input type="radio" name="condition" id="condition3" class="radio_condition" value="3" onclick="NetworkClick()"><label for="condition3" class="label_condition">Fully functional + Bad ESN</label></span>
-					<span class="span_condition"><input type="radio" name="condition" id="condition4" class="radio_condition" value="4" onclick="NetworkClick()"><label for="condition4" class="label_condition">Fully functional, including cracked + Bad ESN</label></span>
-					<span class="span_condition"><input type="radio" name="condition" id="condition5" class="radio_condition" value="5" onclick="NetworkClick()"><label for="condition5" class="label_condition">Phones for Parts (iCloud + Cracked + Bad ESN)</label></span>
 				</div>
 			</div>
 			<!-- --------------------------------------------------------------------------  -->
 
 			<div id="stage3_1" class="stage hovanka">
+				<div id="substage3_1" class="substage">
 
 				<div id="blok1_stage3_1">Important Success Tips</div>
 
 				<p id="p1_stage3_1">Leverage all our features to snag deals daily!</p>
-
 
 
 				<div id="blok2_stage3_1">
@@ -210,115 +221,170 @@
 
 					<div id="tip1_blok2_stage3_1">
 
-						<div id="div1_tip1">1</div>
+						<div id="div1_tip1" class="div_tip"></div>
+
 						<div id="div2_tip1">
 							<img id="img_div2_tip1" src="./images/LetterUnread3_1.png" alt="">
 							<span id="span_div2_tip1">&nbsp;Email alerts</span>
 						</div>
-						<div id="div3_tip1">
-							<img id="img_div3_tip1" src="./images/HorscrollWeb_1.png" alt="">
-						</div>
 
-						<div id="btn1_karusel">
-							<img src="./images/svg/point1.svg" alt="">
+						<div id="div3_tip1"><!-- Karusel1 is here --></div>
+
+						<div id="btn1_karusel" class="btn_karusel">
+							<span id="span1_btn1_karusel" class="span_karusel1"></span>
+							<span id="span2_btn1_karusel" class="span_karusel1"></span>
+							<span id="span3_btn1_karusel" class="span_karusel1"></span>
 						</div>
 
 						<div id="div4_tip1">
 							<p class="p_div4_tip1">In the race for eBay deals, every second counts.</p>
-							<p class="p_div4_tip1">Our alerts are designed to notify you as soon as a new listing is posted, if our algorithm marks it as a potential deal.</p>
-							<p class="p_div4_tip1">Pair them with an email app like Gmail that offers push notifications to get notified instantly.</p>
-							<p class="p_div4_tip1">Each alert contains a direct link, allowing you to jump on deals quickly and be the first to buy.</p>
+							<p class="p_div4_tip1">Our alerts are designed to notify you as soon as a new listing is posted, if our algorithm
+								marks it as a potential deal.</p>
+							<p class="p_div4_tip1">Pair them with an email app like Gmail that offers push notifications to get notified
+								instantly.</p>
+							<p class="p_div4_tip1">Each alert contains a direct link, allowing you to jump on deals quickly and be the first
+								to buy.</p>
 						</div>
 					</div>
 
 
 					<div id="tip2_blok2_stage3_1">
-						<div id="div1_tip2">2</div>
+						<div id="div1_tip2" class="div_tip"></div>
 						<div id="div2_tip2">
 							<img id="img_div2_tip2" src="./images/PlayStream1.png" alt="">
 							<span id="span_div2_tip2">&nbsp;Live feed</span>
 						</div>
-						<div id="div3_tip2">
-							<img id="img_div3_tip2" src="./images/HorscrollWeb_2.png" alt="">
-						</div>
-						<div id="btn2_karusel">
-							<img src="./images/svg/point2.svg" alt="">
+
+						<div id="div3_tip2"><!-- Karusel2 is here --></div>
+
+						<div id="btn2_karusel" class="btn_karusel">
+							<span id="span1_btn2_karusel" class="span_karusel2"></span>
+							<span id="span2_btn2_karusel" class="span_karusel2"></span>
+							<span id="span3_btn2_karusel" class="span_karusel2"></span>
 						</div>
 
 						<div id="div4_tip2">
-							<p class="p_div4_tip2">Stay updated with our Live Feed, a real-time stream of eBay listings that you can keep as an open tab in your browser.</p>
-							<p class="p_div4_tip2">Our live feed can show you every new iPhone listing, deal or not, and is fully customizable with your filters.</p>
-							<p class="p_div4_tip2">Ideal for desktop use, the Live Feed lets you keep track all recent listings while you're busy with other tasks. This way, you won't miss any opportunity, including listings that might not be flagged as deals by our algorithm.</p>
+							<p class="p_div4_tip2">Stay updated with our Live Feed, a real-time stream of eBay listings that you can keep as
+								an open tab in your browser.</p>
+							<p class="p_div4_tip2">Our live feed can show you every new iPhone listing, deal or not, and is fully customizable
+								with your filters.</p>
+							<p class="p_div4_tip2">Ideal for desktop use, the Live Feed lets you keep track all recent listings while you're
+								busy with other tasks. This way, you won't miss any opportunity, including listings that might not be flagged as
+								deals by our algorithm.</p>
 						</div>
 					</div>
 
 
 					<div id="tip3_blok2_stage3_1">
-						<div id="div1_tip3">3</div>
+						<div id="div1_tip3" class="div_tip"></div>
 						<div id="div2_tip3">
 							<img id="img_div2_tip3" src="./images/Search-1-1.png" alt="">
 							<span id="span_div2_tip3">&nbsp;Browse all</span>
 						</div>
-						<div id="div3_tip3">
-							<img id="img_div3_tip3" src="./images/HorscrollWeb_3.png" alt="">
-						</div>
+						<div id="div3_tip3"><!-- Karusel3 is here --></div>
 
-						<div id="btn3_karusel">
-							<img src="./images/svg/point3.svg" alt="">
+						<div id="btn3_karusel" class="btn_karusel">
+							<span id="span1_btn3_karusel" class="span_karusel3"></span>
+							<span id="span2_btn3_karusel" class="span_karusel3"></span>
+							<span id="span3_btn3_karusel" class="span_karusel3"></span>
 						</div>
 
 						<div id="div4_tip3">
-							<p class="p_div4_tip3">Discover every iPhone listing on eBay, new or old, with our 'Browse All' search interface.</p>
-							<p class="p_div4_tip3">Use filters to refine your search by model, condition, price, and sellers open to offers.</p>
-							<p class="p_div4_tip3">This feature is particularly useful for thorough exploration, allowing you to find opportunities among both recent and older listings, including sellers who are open to negotiating prices.</p>
+							<p class="p_div4_tip3">Discover every iPhone listing on eBay, new or old, with our 'Browse All' search interface.
+							</p>
+							<p class="p_div4_tip3">Use filters to refine your search by model, condition, price, and sellers open to offers.
+							</p>
+							<p class="p_div4_tip3">This feature is particularly useful for thorough exploration, allowing you to find
+								opportunities among both recent and older listings, including sellers who are open to negotiating prices.</p>
+
+							<div id="pusto3"></div>
+
 						</div>
+					</div>
+
+				</div>
+				</div>
+			</div>
+
+
+			<div id="stage3_2" class="stage hovanka">
+				<div id="substage3_2" class="substage">
+
+					<div id="blok1_stage3_2">
+						<p id="title1_stage3_2">Pro-Tip: You can often suggest your own price!</p>
+						<p id="title2_stage3_2">When our email alert says 'Submit your Offer,' that means you can name your own price. These listings are ready for negotiation, and by making an offer quickly, you can secure a great deal!</p>
+					</div>
+
+					<div id="blok2_stage3_2">
+						<span id="grafik"></span><p id="zmist_grafik">65% of the devices our users buy are purchased using this tactic.</p>
+					</div>
+
+
+<div id="spilne">
+
+					<div id="blok3_stage3_2">
+
+						<div id="tip1_blok3_stage3_2">
+							<div id="blok1_tip1_blok3_stage3_2">Listings in Auction format:</div>
+							<div id="blok2_tip1_blok3_stage3_2"></div>
+							<div id="blok3_tip1_blok3_stage3_2">
+								<span id="blyskavka"></span><p id="zmist_blyskavka">Acting quickly is crucial—submit your offer before anyone else places a bid to avoid starting the auction process.Remember, 35% of auctions are sold within just a few hours after an offer is made.</p>
+							</div>
+						</div>
+
+						<div id="tip2_blok3_stage3_2">
+							<div id="blok1_tip2_blok3_stage3_2">Listings in “Buy it Now” format:</div>
+							<div id="blok2_tip2_blok3_stage3_2"></div>
+							<div id="blok3_tip2_blok3_stage3_2">
+								<span id="vidsotok"></span><p id="zmist_vidsotok">Sellers frequently agree to offers about 10% below the 'Buy It Now' price. For devices with defects, they may be open to	even lower offers.</p>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div id="blok4_stage3_2"><span id="lampa"></span>
+						<p id="zmist_lampa">You can make up to 5 offers, so if your first one's declined, try again!</p>
 					</div>
 
 
 
+
+</div>
+
+
+
 				</div>
-
-
 			</div>
 
-			<!-- --------------------------------------------------------------------------  -->
-			<div id="stage3_2" class="stage hovanka">STAGE3_2</div>
-			<!-- --------------------------------------------------------------------------  -->
-			<div id="stage3_3" class="stage hovanka">STAGE3_3</div>
-			<!-- --------------------------------------------------------------------------  -->
-			<div id="stage4" class="stage hovanka">STAGE4</div>
-			<!-- --------------------------------------------------------------------------  -->
-			<div id="stage5" class="stage hovanka">STAGE5</div>
-			<!-- --------------------------------------------------------------------------  -->
 
 
-			<div id="back_next">
 
-				<div id="back_btn" class="buttons">
-<!--
-					<span id="back_btn1" class="back_buttons"><</span>
-					<span id="back_btn2" class="back_buttons">Back</span>
--->
-				</div>
-
-
-				<div id="next_btn" class="buttons">
-<!--
-					<span id="next_btn1" class="next_buttons">Next</span>
-					<span id="next_btn2" class="next_buttons">></span>
--->
-				</div>
-
+			<div id="stage3_3" class="stage hovanka">
+				<div id="substage3_3" class="substage">substage3_3 </div>
 			</div>
+
+			<div id="stage4" class="stage hovanka">
+				<div id="substage4" class="substage">substage4 </div>
+			</div>
+
+			<div id="stage5" class="stage hovanka">
+				<div id="substage5" class="substage">substage5 </div>
+			</div>
+
 
 		</main>
 
+		<footer>
+			<div id="back_next">
+				<div id="back_btn"></div>
+				<div id="next_btn"></div>
+			</div>
+		</footer>
 
 	</div>
+
+
 </body>
-
-<script></script>
 </html>
-
-
 
