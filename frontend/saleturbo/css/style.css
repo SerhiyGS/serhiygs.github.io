@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap');
 
 * {
 	margin: 0;
@@ -16,7 +17,7 @@ body {
 	justify-content: center;
 	align-items: center;
 
-	font-family: Roboto, "Open Sans", Helvetica, Inter, sans-serif;
+	font-family: "Roboto", "Open Sans", "Helvetica", "Inter", sans-serif;
 	font-size: 100%;
 	overflow: hidden;
 	background: rgba(237, 239, 240, 1);
