@@ -1160,29 +1160,120 @@ width: 24px;
 
 		/*border: 1px solid red;*/
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ***************************************************	S T A G E 3_3	********************************************** */
+
+#stage3_3 {
+	min-height: 50px;
+
+	width: 100%;
+	height: 93%;
+
+	display: none;
+	flex-direction: row;
+	justify-content: center;
+	align-items: stretch;
+	overflow: hidden;
+	/*border: 1px solid blue;*/
+}
+
+#substage3_3 {
+	width: 390px;
+	height: 590px;
+
+	/*margin: 0 auto;*/
+	/*left: calc((100% - 54%) / 2);*/
+	/*flex: 1;*/
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+
+	/*border: 1px solid green;*/
+	overflow: hidden;
+}
+
+#p_substage3_3{
+	margin-top: 40px;
+	width: 390px;
+	max-height: 48px;
+	/*padding: 10px, 22px, 10px, 22px;*/
+	/*gap: 16px;*/
+
+	font-family: Roboto;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 28px;
+	letter-spacing: 0em;
+	text-align: center;
+
+	/*border: 1px solid red;*/
+}
+
+#block_substage3_3{
+	margin-top: 20px;
+	width: 390px;
+	height: 499px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+
+	border-radius: 6px;
+	border: 1px;
+	gap: 8px;
+
+	border: 1px solid rgba(207, 225, 240, 1);
+}
+
+#block1_block_substage3_3{
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+	#block1_block1_block_substage3_3{
+		width: 358px;
+		max-height: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 8px;
+	}
+		#mishok{
+			width: 24px;
+			height: 24px;
+			background: url('../images/money-dollar.svg') center/cover no-repeat;
+		}
+		#mishok_content{
+			width: 326px;
+			height: 19px;
+			font-family: Roboto;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 19px;
+			letter-spacing: 0em;
+			text-align: left;
+		}
+	#block2_block1_block_substage3_3{
+		width: 358px;
+		height: 32px;
+		font-family: Roboto;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 16px;
+		letter-spacing: 0em;
+		text-align: left;
+		color: rgba(128, 128, 128, 1);
+	}
+
+#block2_block_substage3_3{
+	align-self: center;
+	width: 352px;
+	height: 395px;
+	border-radius: 4px;
+	background: url('../images/sales.png') center/cover no-repeat;
+}
+
+
+
 /* ***************************************************	S T A G E 4 		********************************************** */
 /* ***************************************************	S T A G E 5		********************************************** */
