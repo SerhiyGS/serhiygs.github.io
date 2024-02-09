@@ -59,7 +59,7 @@ class Karusel {
 			ar.unshift(ar.pop());
 			return ar;
 		};
-		this.toLeft = function (trans, delay) {
+		this.toLeft = function (trans, delay, callback) {
 			if (this.praporMove == 0) {
 				this.praporMove = 1;
 				this.childElement1.style.backgroundImage = `url("${this.imagesArray[0]}")`;
@@ -78,11 +78,12 @@ class Karusel {
 						this.childElement1.style.transition = trans;
 						this.childElement2.style.transition = trans;
 						this.praporMove = 0;
+						if (callback) {	callback();	}
 					}, 100);
 				}, delay);
 			}
 		};
-		this.toRight = function (trans, delay) {
+		this.toRight = function (trans, delay, callback) {
 			if (this.praporMove == 0) {
 				this.praporMove = 1;
 				this.childElement1.style.transition = 'none';
@@ -99,6 +100,7 @@ class Karusel {
 					this.childElement2.style.transform = `translateX(0%)`;
 					setTimeout(() => {
 						this.praporMove = 0;
+						if (callback) {	callback();	}
 					}, delay);
 				}, 100);
 			}
@@ -110,9 +112,9 @@ class Karusel {
 			rizn = Math.abs(n - this.currentIndex);
 			if (n != this.currentIndex) {
 				if (n > this.currentIndex) {
-					this.toLeft('transform 0.25s ease', 250);
+					this.toLeft('transform 0.5s ease', 500);
 				} else {
-					this.toRight('transform 0.25s ease', 250);
+					this.toRight('transform 0.5s ease', 500);
 				}
 				IdTimeout = setTimeout(() => {
 					rizn = Math.abs(n - this.currentIndex);
@@ -121,7 +123,7 @@ class Karusel {
 					} else {
 						clearTimeout(IdTimeout);
 					}
-				}, 250);
+				}, 50);
 			}
 		};
 		this.init();
