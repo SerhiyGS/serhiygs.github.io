@@ -8,20 +8,31 @@ const label = qE('#label');
 
 const main = qE('main');
 const indicators = qE('#indicators');
+var image_use;// = qE('#image_use');
+var btn_use;
+var xhr_btn;
 
 const stage1 = qE('#stage1');
 const substage1 = qE('#substage1');
+
 const blok1_stage1 = qE('#blok1_stage1');
 const p_blok2_stage1 = qE('#p_blok2_stage1');
 
 
 const stage2 = qE('#stage2');
 const substage2 = qE('#substage2');
+
 const spysok = qE('#spysok');
+const pusto_spysok = qE('#pusto_spysok');
+
+
 const blok1_stage2 = qE('#blok1_stage2');
 const p1_stage2 = qE('#p1_stage2');
 const blok2_stage2 = qE('#blok2_stage2');
 const p2_stage2 = qE('#p2_stage2');
+const p3_stage2 = qE('#p3_stage2');
+const p4_stage2 = qE('#p4_stage2');
+
 
 
 
@@ -59,6 +70,12 @@ const span_karusel1 = document.querySelectorAll('.span_karusel1');
 const span_karusel2 = document.querySelectorAll('.span_karusel2');
 const span_karusel3 = document.querySelectorAll('.span_karusel3');
 
+const arrow = document.querySelectorAll('.arrow');
+
+const pusto_blok2_stage3_1 = qE('#pusto_blok2_stage3_1');
+
+
+
 
 const stage3_2 = qE('#stage3_2');
 const substage3_2 = qE('#substage3_2');
@@ -71,6 +88,8 @@ const grafik = qE('#grafik');
 const zmist_grafik = qE('#zmist_grafik');
 
 const spilne = qE('#spilne');
+const pusto_spilne = qE('#pusto_spilne');
+
 
 const blok3_stage3_2 = qE('#blok3_stage3_2');
 const tip1_blok3_stage3_2 = qE('#tip1_blok3_stage3_2');
@@ -170,6 +189,9 @@ var CountPreferences = 0;
 var FlagResize = 0;
 
 var IdInterval;
+var IdIntervalArrow;
+var nomerArrow = 1;
+
 
 var KadrArr1 = [
 	"./images/karusel_1_1.png",
@@ -201,6 +223,13 @@ const karusel3 = new Karusel('#div3_tip3', '100%', '100%', KadrArr3);
 
 var PraporSkip = 0;
 
+var LastIndicator = `#image1`;
+
+var klac = 0;
+var startPositionX;
+var startPositionY;
+
+
 //'358px', '287px',
 
 
@@ -208,6 +237,9 @@ var PraporSkip = 0;
 function isMobileDevice() { return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent); }
 // -----------------------------------------------------------------------------
 const SetPageSize = ()=>{
+	let vIndicators;
+
+
 	if (wW >= wH) {
 		container.style.width = `89%`;
 		if (isMobileDevice()) {
@@ -233,20 +265,22 @@ const SetPageSize = ()=>{
 
 		}
 		indicators.style.width = `325px`;
-		indicators.style.background = `url('./images/ind_1_mob.svg') center/cover no-repeat`;
+
+		//indicators.style.background = `url('./images/ind_1_mob.svg') center/cover no-repeat`;
+		vIndicators = 'indicators_mob.svg';
 
 		// -----------------------------------------------------------------------------------
 		blok1_stage1.style.marginTop = '7.7%';
 		p_blok2_stage1.style.marginTop = '9%';
 		// -----------------------------------------------------------------------------------
 
-
 	} else {
 		label.style.width = `162px`;
 		label.style.height = `36px`;
 		indicators.style.marginTop = `2.5%`;
 		indicators.style.width = `390px`;
-		indicators.style.background = `url('./images/ind_1.svg') center/cover no-repeat`;
+		vIndicators = 'indicators.svg';
+
 		footer.style.height = `58px`;
 
 		// -----------------------------------------------------------------------------------
@@ -255,10 +289,41 @@ const SetPageSize = ()=>{
 		// -----------------------------------------------------------------------------------
 
 	}
+
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET', `./images/${vIndicators}`, true);
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			const svgContent = xhr.responseText;
+			indicators.innerHTML = svgContent;
+			image_use = qE('#image_use');
+			image_use.setAttribute('xlink:href', LastIndicator);
+		}
+	};
+	xhr.send();
+
+
+	xhr_btn = new XMLHttpRequest();
+	xhr_btn.open('GET', `./images/next_btn.svg`, true);
+	xhr_btn.onreadystatechange = function () {
+		if (xhr_btn.readyState === 4 && xhr_btn.status === 200) {
+/*
+			next_btn.innerHTML = xhr_btn.responseText;
+			btn_use = qE('#btn_use');
+			btn_use.setAttribute('xlink:href', `#btn2s4`);
+*/
+		}
+	};
+	xhr_btn.send();
+
+
+
+
 	main.style.height = `${container.offsetHeight - header.offsetHeight - footer.offsetHeight}px`;
 
  	// -----------------------------------------------------------------------------------
 	stage1.style.width = `${indicators.offsetWidth}px`;
+
 }
 // -------------------------------------------------------------------------------------------------------------------
 const fadeIn = (blok)=>{
@@ -278,7 +343,6 @@ const fadeIn = (blok)=>{
 	}
 	setTimeout(() => {
 		FlagClick = 0;
-
 	}, 1000);
 	FlagResize == 0;
 }
@@ -372,10 +436,17 @@ const NetworkClick = (el) => {
 	CountPreferences += countNC + sl + countNC1;
 
 	if (countNC == 1 && countNC1 == 1 && CountPreferences >= 3) {
-		gE('next_btn').style.background = `url('./images/next2b.svg') center/cover no-repeat`;
+		btn_use.setAttribute('xlink:href', `#btn2b4`);
+
+		//gE('next_btn').style.background = `url('./images/next2b.svg') center/cover no-repeat`;
+
 		isDisabled = true;
 	} else {
-		gE('next_btn').style.background = `url('./images/next2s.svg') center/cover no-repeat`;
+
+		btn_use.setAttribute('xlink:href', `#btn2s4`);
+
+		//gE('next_btn').style.background = `url('./images/next2s.svg') center/cover no-repeat`;
+
 		isDisabled = false;
 	}
 }
@@ -395,18 +466,18 @@ const AutoHod = () => {
 			gE('network1').click();
 			gE('model1').click();
 			gE('condition1').click();
-//			gE('next_btn').click();//На сторінку 3_1
+			gE('next_btn').click();//На сторінку 3_1
 			setTimeout(() => {
-//				gE('next_btn').click();//На сторінку 3_2
+				gE('next_btn').click();//На сторінку 3_2
 				setTimeout(() => {
-//					gE('next_btn').click();//На сторінку 3_3
+					gE('next_btn').click();//На сторінку 3_3
 					setTimeout(() => {
-//						gE('next_btn').click();//На сторінку 4
+						gE('next_btn').click();//На сторінку 4
 							setTimeout(() => {
-//								input_block2_substage4.value = 'test01@gmail.com';
-//								PraporSkip = 1;
+								input_block2_substage4.value = 'test01@gmail.com';
+								PraporSkip = 1;
 								setTimeout(() => {
-//									gE('next_btn').click();//На сторінку 5
+									gE('next_btn').click();//На сторінку 5
 								}, 100);
 							}, 2000);
 						}, 2000);
@@ -425,7 +496,56 @@ window.onload = () => {
 	SetPageSize();
 	fadeIn(stage1);
 
-	//AutoHod();
+//AutoHod();
+
+	setInterval(() => {
+		//console.log(spysok.offsetHeight);
+		if (pusto_spysok.offsetHeight != spysok.offsetHeight){
+			pusto_spysok.style.top = `${spysok.offsetTop}px`;
+			pusto_spysok.style.height = `${spysok.offsetHeight}px`;
+		}
+
+
+		if (pusto_spilne.offsetHeight != stage3_2.offsetHeight) {
+			pusto_spilne.style.top = `${stage3_2.offsetTop-1}px`;
+			pusto_spilne.style.height = `${stage3_2.offsetHeight+1}px`;
+		}
+
+
+		if (spilne.offsetHeight > stage3_2.offsetHeight ){
+			stage3_2.style.overflowY = 'auto';
+		} else {
+			stage3_2.style.overflowY = 'hidden';
+		}
+
+
+
+		if (pusto_blok2_stage3_1.offsetHeight != blok2_stage3_1.offsetHeight) {
+			pusto_blok2_stage3_1.style.top = `${blok2_stage3_1.offsetTop}px`;
+			pusto_blok2_stage3_1.style.height = `${blok2_stage3_1.offsetHeight}px`;
+		}
+
+
+		//console.log(tip1_blok2_stage3_1.offsetHeight + ' '+ blok2_stage3_1.offsetHeight);
+
+		if (tip1_blok2_stage3_1.offsetHeight > blok2_stage3_1.offsetHeight ) {
+			pusto_blok2_stage3_1.style.display = 'block';
+			blok2_stage3_1.style.overflowY = 'auto';
+		} else {
+			pusto_blok2_stage3_1.style.display = 'none';
+			blok2_stage3_1.style.overflowY = 'hidden';
+		}
+
+
+
+
+
+
+
+
+	}, 250);
+
+
 
 }
 window.onresize = () => {
@@ -438,7 +558,12 @@ window.onresize = () => {
 back_btn.onclick = () => {
 	if (FlagClick == 0) {
 		if (window.getComputedStyle(gE('stage2')).display == 'flex') {// Show STAGE1 after click on STAGE2
-			indicators.style.background = (isMobileDevice()) ? `url('./images/ind_1_mob.svg') center/cover no-repeat` : `url('./images/ind_1.svg') center/cover no-repeat`;
+
+			//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_1_mob.svg') center/cover no-repeat` : `url('./images/ind_1.svg') center/cover no-repeat`;
+
+			LastIndicator = `#image1`;
+			image_use.setAttribute('xlink:href', LastIndicator);
+
 			fadeIn(stage2);
 			setTimeout(() => {
 				stage2.style.display = 'none';
@@ -449,53 +574,87 @@ back_btn.onclick = () => {
 				back_btn.style.display = 'none';
 				next_btn.style.width = `326px`;
 				next_btn.style.background = `url('./images/next1b.svg') center/cover no-repeat`;
+				next_btn.innerHTML = '';
+
+
+
 			}, 500);
 		}
 		else if (window.getComputedStyle(gE('stage3_1')).display == 'flex') {// Show STAGE2 after click on STAGE3_1
-			indicators.style.background = (isMobileDevice()) ? `url('./images/ind_2_mob.svg') center/cover no-repeat` : `url('./images/ind_2.svg') center/cover no-repeat`;
+			//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_2_mob.svg') center/cover no-repeat` : `url('./images/ind_2.svg') center/cover no-repeat`;
+			LastIndicator = `#image2`;
+			image_use.setAttribute('xlink:href', LastIndicator);
+
 			fadeIn(stage3_1);
 			setTimeout(() => {
 				stage3_1.style.display = 'none';
 				stage2.style.display = 'flex';
 				fadeIn(stage2);
-				next_btn.style.background = `url('./images/next2b.svg') center/cover no-repeat`;
+
+				//				next_btn.style.background = `url('./images/next2b.svg') center/cover no-repeat`;
+				btn_use.setAttribute('xlink:href', `#btn2b4`);
 
 				clearInterval(IdInterval);
+				clearInterval(IdIntervalArrow);
+
 
 			}, 500);
 		}
 		else if (window.getComputedStyle(gE('stage3_2')).display == 'block') {// Show STAGE3_1 after click on STAGE3_2
-			indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_1_mob.svg') center/cover no-repeat` : `url('./images/ind_3_1.svg') center/cover no-repeat`;
+			//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_1_mob.svg') center/cover no-repeat` : `url('./images/ind_3_1.svg') center/cover no-repeat`;
+			LastIndicator = `#image3_1`;
+			image_use.setAttribute('xlink:href', LastIndicator);
+
 			fadeIn(stage3_2);
 			setTimeout(() => {
 				stage3_2.style.display = 'none';
 				stage3_1.style.display = 'flex';
 				fadeIn(stage3_1);
-				next_btn.style.background = `url('./images/next3_1.svg') center/cover no-repeat`;
+				//next_btn.style.background = `url('./images/next3_1.svg') center/cover no-repeat`;
+				btn_use.setAttribute('xlink:href', `#btn3_1`);
+
 			}, 500);
 		}
 		else if (window.getComputedStyle(gE('stage3_3')).display == 'flex') {// Show STAGE3_2 after click on STAGE3_3
-			indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_2_mob.svg') center/cover no-repeat` : `url('./images/ind_3_2.svg') center/cover no-repeat`;
+			//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_2_mob.svg') center/cover no-repeat` : `url('./images/ind_3_2.svg') center/cover no-repeat`;
+			LastIndicator = `#image3_2`;
+			image_use.setAttribute('xlink:href', LastIndicator);
 			fadeIn(stage3_3);
 			setTimeout(() => {
 				stage3_3.style.display = 'none';
 				stage3_2.style.display = 'block';
 				fadeIn(stage3_2);
-				next_btn.style.background = `url('./images/next3_2.svg') center/cover no-repeat`;
+				//next_btn.style.background = `url('./images/next3_2.svg') center/cover no-repeat`;
+				btn_use.setAttribute('xlink:href', `#btn3_2`);
+
+				if (isMobileDevice()) {
+					IdIntervalArrow = setInterval(() => {
+						arrow.forEach((strilka) => {
+							strilka.style.background = `url('./images/arrow${nomerArrow}.png') center/contain no-repeat`;
+						});
+						nomerArrow = (nomerArrow < 4) ? nomerArrow = nomerArrow + 1 : nomerArrow = 1;
+					}, 400);
+				}
 			}, 500);
 		}
 		else if (window.getComputedStyle(gE('stage4')).display == 'flex') {// Show STAGE3_3 after click on STAGE4
-			indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_3_mob.svg') center/cover no-repeat` : `url('./images/ind_3_3.svg') center/cover no-repeat`;
+			//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_3_mob.svg') center/cover no-repeat` : `url('./images/ind_3_3.svg') center/cover no-repeat`;
+			LastIndicator = `#image3_3`;
+			image_use.setAttribute('xlink:href', LastIndicator);
 			fadeIn(stage4);
 			setTimeout(() => {
 				stage4.style.display = 'none';
 				stage3_3.style.display = 'flex';
 				fadeIn(stage3_3);
-				next_btn.style.background = `url('./images/next3_3.svg') center/cover no-repeat`;
+				//next_btn.style.background = `url('./images/next3_3.svg') center/cover	no-repeat`;
+				btn_use.setAttribute('xlink:href', `#btn3_3`);
 			}, 500);
 		}
 		else if (window.getComputedStyle(gE('stage5')).display == 'flex') {// Show STAGE4 after click on STAGE5
-			indicators.style.background = (isMobileDevice()) ? `url('./images/ind_4_mob.svg') center/cover no-repeat` : `url('./images/ind_4.svg') center/cover no-repeat`;
+			//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_4_mob.svg') center/cover no-repeat` : `url('./images/ind_4.svg') center/cover no-repeat`;
+			LastIndicator = `#image4`;
+			image_use.setAttribute('xlink:href', LastIndicator);
+
 			fadeIn(stage5);
 			setTimeout(() => {
 				stage5.style.display = 'none';
@@ -503,40 +662,66 @@ back_btn.onclick = () => {
 				fadeIn(stage4);
 				if (PraporSkip == 0) {
 					input_block2_substage4.focus();
-					next_btn.style.background = `url('./images/next4s.svg') center/cover no-repeat`;
+					//next_btn.style.background = `url('./images/next4s.svg') center/cover no-repeat`;
+					btn_use.setAttribute('xlink:href', `#btn2s4`);
 				} else {
-					next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+					//next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+					if (input_block2_substage4.value == ''){
+						PraporSkip = 0;
+						btn_use.setAttribute('xlink:href', `#btn2s4`);
+					}else{
+						btn_use.setAttribute('xlink:href', `#btn2b4`);
+					}
+
+
 				}
 				confeti.style.transition = "transform 0.1s ease-in-out";
 				confeti.style.transform = "scale(0.1)";
-
 			}, 500);
 		}
 	}
 }
 // ------------------------------------------ NEXT BUTTON ------------------------------------------
 next_btn.onclick = () => {
+
 	if (FlagClick == 0) {
 		if (isDisabled === true) {
 			if (window.getComputedStyle(gE('stage1')).display == 'flex') {// Show STAGE2 after click on STAGE1
-				indicators.style.background = (isMobileDevice()) ? `url('./images/ind_2_mob.svg') center/cover no-repeat` : `url('./images/ind_2.svg') center/cover no-repeat`;
+				//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_2_mob.svg') center/cover no-repeat` : `url('./images/ind_2.svg') center/cover no-repeat`;
+				LastIndicator = `#image2`;
+				image_use.setAttribute('xlink:href', LastIndicator);
+
 				fadeIn(stage1);
 				setTimeout(() => {
 					stage1.style.display = 'none';
 					back_btn.style.display = 'flex';
-					next_btn.style.background = `url('./images/next2b.svg') center/cover no-repeat`;
 					back_btn.style.display = `flex`;
 					back_btn.style.width = `99px`;
-					next_btn.style.width = `217px`;
 					stage2.style.display = 'flex';
+
+
+					next_btn.style.width = `217px`;
+
+					//next_btn.style.background = `url('./images/next2b.svg') center/cover no-repeat`;
+
+					next_btn.style.background = '';
+					next_btn.innerHTML = xhr_btn.responseText;
+					btn_use = qE('#btn_use');
+					btn_use.setAttribute('xlink:href', `#btn2s4`);
+
+
 					fadeIn(stage2);
 					isDisabled = false;
 					back_next.style.backgroundColor = `rgba(255, 255, 255, 0)`;
+
 					NetworkClick();
-					if (CountPreferences >= 3) { OprosClick(); }
+
+					//if (CountPreferences >= 3) { OprosClick(); }
 
 					spysok.style.height = `${substage2.offsetHeight}px`;
 
+					p3_stage2.style.marginLeft = '25px';
+					p4_stage2.style.marginTop = '30px';
 
 					if (isMobileDevice()) {
 						blok1_stage2.style.marginTop = '3.8dvh';
@@ -546,9 +731,6 @@ next_btn.onclick = () => {
 
 						p2_stage2.style.marginTop = `4dvh`;
 						p2_stage2.style.width = '326px';
-
-
-
 
 						spysok.style.paddingTop = `0.05dvh`;
 
@@ -561,18 +743,26 @@ next_btn.onclick = () => {
 
 					}
 
+
+
+
 				}, 500);
 			}
 			else if (window.getComputedStyle(gE('stage2')).display == 'flex') {// Show STAGE3_1 after click on STAGE2
-				indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_1_mob.svg') center/cover no-repeat` : `url('./images/ind_3_1.svg') center/cover no-repeat`;
+				//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_1_mob.svg') center/cover no-repeat` : `url('./images/ind_3_1.svg') center/cover no-repeat`;
+				LastIndicator = `#image3_1`;
+				image_use.setAttribute('xlink:href', LastIndicator);
+
 				fadeIn(stage2);
 				setTimeout(() => {
 					stage2.style.display = 'none';
 					stage3_1.style.display = 'flex';
 					fadeIn(stage3_1);
-					next_btn.style.background = `url('./images/next3_1.svg') center/cover no-repeat`;
 
-					stage3_1.style.width = `81%`;
+					//next_btn.style.background = `url('./images/next3_1.svg') center/cover no-repeat`;
+					btn_use.setAttribute('xlink:href', `#btn3_1`);
+
+//					stage3_1.style.width = `81%`;
 
 					let krapka1 = 1;
 					let krapka2 = 1;
@@ -623,127 +813,118 @@ next_btn.onclick = () => {
 				*/
 
 					if (isMobileDevice()) {
-						blok1_stage3_1.style.marginTop = '3.8dvh';
-						blok2_stage3_1.style.marginTop =  `3.6dvh`;
-
+						substage3_1.style.width = `100%`;
+						blok1_stage3_1.style.marginTop = '20px';
+						p1_stage3_1.style.marginTop = '10px';
+						p1_stage3_1.style.fontSize = `16px`;
+						//blok2_stage3_1.style.width = `326px`;
+						blok2_stage3_1.style.flexDirection = `column`;
+						blok2_stage3_1.style.flexWrap = `nowrap`;
+						blok2_stage3_1.style.justifyContent = `flex-start`;
+						blok2_stage3_1.style.alignItems = `center`;
+						blok2_stage3_1.style.gap = `10px`;
+						blok2_stage3_1.style.width = `auto`;
 						blok2_stage3_1.style.height = `auto`;
 
+						// ---------------------------------------------------------------------------
+						tip1_blok2_stage3_1.style.width = `315px`;
+						tip1_blok2_stage3_1.style.margin = `0`;
+						tip1_blok2_stage3_1.style.padding = `16px 13px 13px 13px`;
+							div1_tip1.style.margin = `0`;
+							div2_tip1.style.margin = `-25px 0 0 0px`;
+							div3_tip1.style.margin = `10px 0 0 0px`;
+							div3_tip1.style.width = `290px`;
+							div3_tip1.style.height = `auto`;
+						// ---------------------------------------------------------------------------
+
+						// ---------------------------------------------------------------------------
+						tip2_blok2_stage3_1.style.width = `315px`;
+						tip2_blok2_stage3_1.style.margin = `0`;
+						tip2_blok2_stage3_1.style.padding = `16px 13px 13px 13px`;
+							div1_tip2.style.margin = `0`;
+							div2_tip2.style.margin = `-25px 0 0 0px`;
+							div3_tip2.style.margin = `10px 0 0 0px`;
+							div3_tip2.style.width = `290px`;
+							div3_tip2.style.height = `auto`;
+						// ---------------------------------------------------------------------------
+
+						// ---------------------------------------------------------------------------
+						tip3_blok2_stage3_1.style.width = `315px`;
+						tip3_blok2_stage3_1.style.margin = `0 0 40px 0`;
+						tip3_blok2_stage3_1.style.padding = `16px 13px 13px 13px`;
+							div1_tip3.style.margin = `0`;
+							div2_tip3.style.margin = `-25px 0 0 0px`;
+							div3_tip3.style.margin = `10px 0 0 0px`;
+							div3_tip3.style.width = `290px`;
+							div3_tip3.style.height = `auto`;
+						// ---------------------------------------------------------------------------
+
+						div4_tip1.style.height = `auto`;
+						div4_tip2.style.height = `auto`;
+						div4_tip3.style.height = `auto`;
 
 
-						p1_stage3_1.style.marginTop = `1.1dvh`;
-						p1_stage3_1.style.fontSize = `2.25dvmax`;
-
-
-
-						tip1_blok2_stage3_1.style.flexBasis = '100%';
-//tip1_blok2_stage3_1.style.height = `520px`;
-
-						div1_tip1.style.margin = `2dvh 0 0 2dvw`;
-
-						div2_tip1.style.margin = `-4dvh 0 0 0`;
-						div2_tip1.style.justifyContent = "flex-start";
-						div2_tip1.style.width = `${div2_tip1.offsetWidth - (div2_tip1.offsetWidth * 0.01) * 22}px`;
-
-						div3_tip1.style.marginTop = '1dvh';
-						div3_tip1.style.minWidth = '300px';
-						div3_tip1.style.minHeight = '235px';
-						div3_tip1.style.width = '100%';
-						div3_tip1.style.height = '235px';
-
-						div4_tip1.style.paddingLeft = '3dvw';
-
-//div4_tip1.style.height = `385px`;
-div4_tip1.style.height = `auto`;
-div4_tip1.style.overflowY = 'hidden';
-
-
-						tip2_blok2_stage3_1.style.flexBasis = '100%';
-//tip2_blok2_stage3_1.style.height = `520px`;
-
-						div1_tip2.style.margin = `2dvh 0 0 2dvw`;
-						div2_tip2.style.margin = `-4dvh 0 0 0`;
-						div2_tip2.style.justifyContent = "flex-start";
-						div2_tip2.style.width = `${div2_tip2.offsetWidth - (div2_tip2.offsetWidth * 0.01) * 22}px`;
-
-						//div3_tip2.style.marginTop = '1dvh';
-						//div3_tip2.style.width = '100%';
-						//div3_tip2.style.height = '100%';
-
-						div3_tip2.style.marginTop = '1dvh';
-						div3_tip2.style.minWidth = '300px';
-						div3_tip2.style.minHeight = '235px';
-						div3_tip2.style.width = '100%';
-						div3_tip2.style.height = '235px';
-
-
-						div4_tip2.style.paddingLeft = '3dvw';
-//div4_tip2.style.height = `385px`;
-div4_tip2.style.height = `auto`;
-div4_tip2.style.overflowY = 'hidden';
-
-
-
-						tip3_blok2_stage3_1.style.flexBasis = '100%';
-//tip3_blok2_stage3_1.style.height = `520px`;
-
-						div1_tip3.style.margin = `2dvh 0 0 2dvw`;
-						div2_tip3.style.margin = `-4dvh 0 0 0`;
-						div2_tip3.style.justifyContent = "flex-start";
-						div2_tip3.style.width = `${div2_tip3.offsetWidth - (div2_tip3.offsetWidth * 0.01) * 22}px`;
-
-						//div3_tip3.style.marginTop = '1dvh';
-						//div3_tip3.style.width = '100%';
-						//div3_tip3.style.height = '100%';
-
-
-						div3_tip3.style.marginTop = '1dvh';
-						div3_tip3.style.minWidth = '300px';
-						div3_tip3.style.minHeight = '235px';
-						div3_tip3.style.width = '100%';
-						div3_tip3.style.height = '235px';
-
-
-						div4_tip3.style.paddingLeft = '3dvw';
-//div4_tip3.style.height = `485px`;
-div4_tip3.style.height = `auto`;
-div4_tip3.style.overflowY = 'hidden';
-
-
-						let height = 0;
-
-						const childrenElements1 = tip1_blok2_stage3_1.children;
-						for (let i = 0; i < childrenElements1.length; i++)	height += childrenElements1[i].scrollHeight;
-						tip1_blok2_stage3_1.style.height = `${height + 10}px`;
-
-						height = 0;
-						const childrenElements2 = tip2_blok2_stage3_1.children;
-						for (let i = 0; i < childrenElements2.length; i++)	height += childrenElements2[i].scrollHeight;
-						tip2_blok2_stage3_1.style.height = `${height + 10}px`;
-
-						height = 0;
-						const childrenElements3 = tip3_blok2_stage3_1.children;
-						for (let i = 0; i < childrenElements3.length; i++)	height += childrenElements3[i].scrollHeight;
-						tip3_blok2_stage3_1.style.height = `${height + 10}px`;
-
-
-
-
-
-
-
-
-
-
-
+						IdIntervalArrow = setInterval(() => {
+							arrow.forEach((strilka) => {
+								strilka.style.background = `url('./images/arrow${nomerArrow}.png') center/contain no-repeat`;
+							});
+							nomerArrow = (nomerArrow < 4) ? nomerArrow = nomerArrow + 1 : nomerArrow = 1;
+						}, 400);
 
 					} else {
+
+						// --------------------------------------------------------------------
+						let firstRowElements = 0;
+						let secondRowElements = 0;
+						let elements = document.querySelectorAll('.bloky');
+						for (let i = 0; i < elements.length; i++) {
+							const elementRect = elements[i].getBoundingClientRect();
+							if (elementRect.top === elements[0].getBoundingClientRect().top) {
+								firstRowElements++;
+							} else {
+								secondRowElements++;
+							}
+						}
+						let vR1 = 10;
+						let vR2 = 10;
+						let vR3 = 10;
+						document.querySelectorAll('.p_div4_tip1').forEach((radok)=> {vR1 += radok.offsetHeight;});
+						document.querySelectorAll('.p_div4_tip2').forEach((radok) => { vR2 += radok.offsetHeight; });
+						document.querySelectorAll('.p_div4_tip3').forEach((radok) => { vR3 += radok.offsetHeight; });
+
+						div4_tip1.style.marginBottom = `${15}px`;
+						div4_tip2.style.marginBottom = `${15}px`;
+						div4_tip3.style.marginBottom = `${15}px`;
+
+						const maxN = Math.max(vR1, vR2, vR3);
+
+						if (firstRowElements == 3){
+							div4_tip1.style.height = `${maxN}px`;
+							div4_tip2.style.height = `${maxN}px`;
+							div4_tip3.style.height = `${maxN}px`;
+						}
+
+						if (firstRowElements == 2) {
+							div4_tip1.style.height = `${maxN}px`;
+							div4_tip2.style.height = `${maxN}px`;
+						}
+
+						if (firstRowElements == 1) {
+							div4_tip1.style.height = `auto`;
+							div4_tip2.style.height = `auto`;
+							div4_tip3.style.height = `auto`;
+						}
+						// --------------------------------------------------------------------
 					}
 
 				}, 500);
 			}
 			else if (window.getComputedStyle(gE('stage3_1')).display == 'flex') {// Show STAGE3_2 after click on STAGE3_1
 				clearInterval(IdInterval);
-				indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_2_mob.svg') center/cover no-repeat` : `url('./images/ind_3_2.svg') center/cover no-repeat`;
+				//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_2_mob.svg') center/cover no-repeat` : `url('./images/ind_3_2.svg') center/cover no-repeat`;
+				LastIndicator = `#image3_2`;
+				image_use.setAttribute('xlink:href', LastIndicator);
+
 				fadeIn(stage3_1);
 				setTimeout(() => {
 					stage3_1.style.display = 'none';
@@ -751,10 +932,14 @@ div4_tip3.style.overflowY = 'hidden';
 					stage3_2.style.display = 'block';
 
 					fadeIn(stage3_2);
-					next_btn.style.background = `url('./images/next3_2.svg') center/cover no-repeat`;
-// --------------------------------------------------------------------------------------------------------------------
+
+					//next_btn.style.background = `url('./images/next3_2.svg') center/cover no-repeat`;
+					btn_use.setAttribute('xlink:href', `#btn3_2`);
+
+				// --------------------------------------------------------------------------------------------------------------------
 					if (isMobileDevice()) {
-						substage3_2.style.width = `375px`; substage3_2.style.height = `572px`;
+						substage3_2.style.width = `375px`;
+						//substage3_2.style.height = `572px`;
 						substage3_2.style.justifyContent = `flex-start`;
 
 						blok1_stage3_2.style.marginTop = `24px`
@@ -784,13 +969,21 @@ div4_tip3.style.overflowY = 'hidden';
 						zmist_grafik.style.width = `264px`; zmist_grafik.style.height = `32px`;
 
 						spilne.style.marginTop = `22px`;
-						spilne.style.width = `326px`; spilne.style.height = `550px`;
-						spilne.style.overflowY = `scroll`;
+						spilne.style.width = `326px`;
+						spilne.style.height = `550px`;
+
+						//spilne.style.overflowY = `scroll`;
 						spilne.style.overflowX = 'hidden';
+
+						//spilne.style.paddingBottom = `50dvmin`;
+
+
 
 						blok3_stage3_2.style.width = `326px`; blok3_stage3_2.style.height = `auto`;
 						blok3_stage3_2.style.alignItems = `flex-start`;
 						blok3_stage3_2.style.flexWrap = `wrap`;
+						blok3_stage3_2.style.gap = `10px`;
+
 
 						tip1_blok3_stage3_2.style.width = `326px`; tip1_blok3_stage3_2.style.height = `auto`;
 						tip1_blok3_stage3_2.style.borderRadius = `6px`;
@@ -815,7 +1008,7 @@ div4_tip3.style.overflowY = 'hidden';
 						zmist_vidsotok.style.width = `258px`; zmist_vidsotok.style.height = `auto`;
 
 						blok4_stage3_2.style.marginTop = `20px`;
-						blok4_stage3_2.style.marginBottom = `150px`;
+						blok4_stage3_2.style.marginBottom = `100px`;
 
 						blok4_stage3_2.style.width = `326px`; blok4_stage3_2.style.height = `48px`;
 						lampa.style.width = `24px`; lampa.style.height = `24px`;
@@ -826,13 +1019,22 @@ div4_tip3.style.overflowY = 'hidden';
 				}, 500);
 			}
 			else if (window.getComputedStyle(gE('stage3_2')).display == 'block') {// Show STAGE3_3 after click on STAGE3_2
-				indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_3_mob.svg') center/cover no-repeat` : `url('./images/ind_3_3.svg') center/cover no-repeat`;
+				clearInterval(IdIntervalArrow);
+
+				//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_3_3_mob.svg') center/cover no-repeat` : `url('./images/ind_3_3.svg') center/cover no-repeat`;
+				LastIndicator = `#image3_3`;
+				image_use.setAttribute('xlink:href', LastIndicator);
+
 				fadeIn(stage3_2);
+
 				setTimeout(() => {
 					stage3_2.style.display = 'none';
 					stage3_3.style.display = 'flex';
 					fadeIn(stage3_3);
-					next_btn.style.background = `url('./images/next3_3.svg') center/cover no-repeat`;
+
+					//next_btn.style.background = `url('./images/next3_3.svg') center/cover no-repeat`;
+					btn_use.setAttribute('xlink:href', `#btn3_3`);
+
 					// --------------------------------------------------------------------------------------------------------------------
 					if (isMobileDevice()) {
 						p_substage3_3.style.marginTop = `25px`;
@@ -844,13 +1046,17 @@ div4_tip3.style.overflowY = 'hidden';
 						block2_block_substage3_3.marginTop = `30px`;
 						block2_block_substage3_3.style.width = `252px`;
 						block2_block_substage3_3.style.height= `283px`;
+
 					} else {
 					}
 					// --------------------------------------------------------------------------------------------------------------------
 				}, 500);
 			}
 			else if (window.getComputedStyle(gE('stage3_3')).display == 'flex') {// Show STAGE4 after click on STAGE3_3
-				indicators.style.background = (isMobileDevice()) ? `url('./images/ind_4_mob.svg') center/cover no-repeat` : `url('./images/ind_4.svg') center/cover no-repeat`;
+				//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_4_mob.svg') center/cover no-repeat` : `url('./images/ind_4.svg') center/cover no-repeat`;
+				LastIndicator = `#image4`;
+				image_use.setAttribute('xlink:href', LastIndicator);
+
 				fadeIn(stage3_3);
 				setTimeout(() => {
 					stage3_3.style.display = 'none';
@@ -859,9 +1065,13 @@ div4_tip3.style.overflowY = 'hidden';
 
 					if (PraporSkip == 0){
 						input_block2_substage4.focus();
-						next_btn.style.background = `url('./images/next4s.svg') center/cover no-repeat`;
+						//next_btn.style.background = `url('./images/next4s.svg') center/cover no-repeat`;
+						btn_use.setAttribute('xlink:href', `#btn2s4`);
+
 					} else {
-						next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+						//next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+						btn_use.setAttribute('xlink:href', `#btn2b4`);
+
 					}
 					// --------------------------------------------------------------------------------------------------------------------
 					if (isMobileDevice()) {
@@ -869,19 +1079,26 @@ div4_tip3.style.overflowY = 'hidden';
 						p1_block1_substage4.style.width = `350px`;
 						block2_substage4.style.marginTop = `5px`;
 						block3_substage4.style.marginTop = `52px`;
+
 					} else {
 					}
 					// --------------------------------------------------------------------------------------------------------------------
 				}, 500);
 			}
 			else if (PraporSkip == 1 && window.getComputedStyle(gE('stage4')).display == 'flex') {// Show STAGE5 after click on STAGE4
-				indicators.style.background = (isMobileDevice()) ? `url('./images/ind_5_mob.svg') center/cover no-repeat` : `url('./images/ind_5.svg') center/cover no-repeat`;
+				//indicators.style.background = (isMobileDevice()) ? `url('./images/ind_5_mob.svg') center/cover no-repeat` : `url('./images/ind_5.svg') center/cover no-repeat`;
+				LastIndicator = `#image5`;
+				image_use.setAttribute('xlink:href', LastIndicator);
+
 				fadeIn(stage4);
 				setTimeout(() => {
 					stage4.style.display = 'none';
 					stage5.style.display = 'flex';
 					fadeIn(stage5);
-					next_btn.style.background = `url('./images/next5.svg') center/cover no-repeat`;
+
+					//next_btn.style.background = `url('./images/next5.svg') center/cover no-repeat`;
+					btn_use.setAttribute('xlink:href', `#btn5`);
+
 
 					confeti.style.transition = "transform 2s ease-in-out";
 					confeti.style.transform = "scale(1.0)";
@@ -896,12 +1113,22 @@ div4_tip3.style.overflowY = 'hidden';
 						p2_block1_substage5.style.width = `340px`; p2_block1_substage5.style.height = `48px`;
 						p2_block1_substage5.style.fontSize = `14px`;
 						p2_block1_substage5.style.lineHeight = `16px`;
-						block2_substage5.style.marginTop = '33px';
-						block3_substage5.style.marginTop = '6px';
-						block3_substage5.style.width = `326px`; block3_substage5.style.height = `88px`;
-						konvert_content.style.width = `255px`; konvert_content.style.height = `56px`;
+
+						block2_substage5.style.marginTop = '31px';
+
+
+						block3_substage5.style.marginTop = '5px';
+						block3_substage5.style.width = `326px`;	//block3_substage5.style.height = `888px`;
+						block3_substage5.style.height = `auto`;
+
+						konvert_content.style.width = `255px`;	//konvert_content.style.height = `72px`;//konvert_content.style.height = `max-content`;
+						konvert_content.style.height = `auto`;
+
+
 						konvert_content.style.fontSize = `12px`;
 						konvert_content.style.lineHeight = `14px`;
+
+						//konvert_content.style.border = '1px solid red';
 					} else {
 					}
 					// --------------------------------------------------------------------------------------------------------------------
@@ -911,10 +1138,6 @@ div4_tip3.style.overflowY = 'hidden';
 	}
 }
 // ---------------------------------------------------------------------------------------------------------------
-var klac = 0;
-var startPositionX;
-
-
 function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 	gE(element).addEventListener("mousedown", (event) => {
 		event.stopPropagation();
@@ -955,6 +1178,7 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 			}
 		}
 	});
+
 	gE(element).addEventListener("mouseup", (event) => {
 		event.stopPropagation();
 		event.preventDefault();
@@ -962,16 +1186,15 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 	});
 
 
-
-
-
-
 // -----------------------------------------------------------------
 	gE(element).addEventListener("touchstart", (event) => {
 		event.stopPropagation();
 		event.preventDefault();
 		startPositionX = event.touches[0].clientX;
+		startPositionY = event.touches[0].clientY;
+
 	});
+
 	gE(element).addEventListener("touchmove", (event) => {
 		let dn = 0;
 		let nazva = '';
@@ -980,60 +1203,54 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 
 		const deltaX = event.touches[0].clientX - startPositionX;
 		startPositionX = event.touches[0].clientX;
+
+		const deltaY = event.touches[0].clientY - startPositionY;
+		startPositionY = event.touches[0].clientY;
+
 		gE(line_point).dataset.delta = deltaX;
-			if (deltaX < 0) {
-				nomer_karusel.toLeft('transform 0.5s ease-in-out', 500, () => {
-					dn = parseInt(gE(line_point).dataset.nomer);
-					dn = (dn >= klas_karusel.length) ? 1 : dn + 1;
-					gE(line_point).dataset.nomer = `${dn}`;
-					klas_karusel.forEach((nk) => { nk.style.background = `url('./images/point_s.svg') center/cover no-repeat`; });
-					nazva = `span${dn}_${line_point}`;
-					gE(`span${dn}_${line_point}`).style.background = `url('./images/point_b.svg') center/cover no-repeat`;
-				});
+		if (deltaX < 0) {
+			nomer_karusel.toLeft('transform 0.5s ease-in-out', 500, () => {
+				dn = parseInt(gE(line_point).dataset.nomer);
+				dn = (dn >= klas_karusel.length) ? 1 : dn + 1;
+				gE(line_point).dataset.nomer = `${dn}`;
+				klas_karusel.forEach((nk) => { nk.style.background = `url('./images/point_s.svg') center/cover no-repeat`; });
+				nazva = `span${dn}_${line_point}`;
+				gE(`span${dn}_${line_point}`).style.background = `url('./images/point_b.svg') center/cover no-repeat`;
+			});
+		}
+		else
+		if (deltaX > 0) {
+			nomer_karusel.toRight('transform 0.5s ease-in-out', 500, () => {
+				dn = parseInt(gE(line_point).dataset.nomer);
+				dn = (dn <= 1) ? 3 : dn - 1;
+				gE(line_point).dataset.nomer = `${dn}`;
+				klas_karusel.forEach((nk) => { nk.style.background = `url('./images/point_s.svg') center/cover no-repeat`; });
+				gE(`span${dn}_${line_point}`).style.background = `url('./images/point_b.svg') center/cover no-repeat`;
+			});
+		}
+
+		if (deltaY < -10) {
+			blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + 10;
+			//console.log(deltaY);
+		} else {
+			if (deltaY > 10) {
+				blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - 10;
 			}
-			else
-				if (deltaX > 0) {
-					nomer_karusel.toRight('transform 0.5s ease-in-out', 500, () => {
-						dn = parseInt(gE(line_point).dataset.nomer);
-						dn = (dn <= 1) ? 3 : dn - 1;
-						gE(line_point).dataset.nomer = `${dn}`;
-						klas_karusel.forEach((nk) => { nk.style.background = `url('./images/point_s.svg') center/cover no-repeat`; });
-						gE(`span${dn}_${line_point}`).style.background = `url('./images/point_b.svg') center/cover no-repeat`;
-					});
-				}
+		}
+
 	});
 	gE(element).addEventListener("touchend", (event) => {
 		event.stopPropagation();
 		event.preventDefault();
 		startPositionX = undefined;
+		startPositionY = undefined;
 	});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
 document.addEventListener("mouseup", () => {
 	startPositionX = undefined;
+	startPositionY = undefined;
 });
 
 // ------------------------------------------------------------------------------
@@ -1123,23 +1340,123 @@ input_block2_substage4.onkeyup = (event) => {
 	let emailValue = event.target.value;
 	if (emailValue.trim() !== '' && emailRegex.test(event.target.value)) {
 		PraporSkip = 1;
-		next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+		//next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+		btn_use.setAttribute('xlink:href', `#btn2b4`);
 		//block4_substage4.style.visibility = 'hidden';
 	} else {
 		PraporSkip = 0;
-		next_btn.style.background = `url('./images/next4s.svg') center/cover no-repeat`;
-		block4_substage4.style.color = `rgba(0, 145, 215, 1)`;
+		//next_btn.style.background = `url('./images/next4s.svg') center/cover no-repeat`;
+		btn_use.setAttribute('xlink:href', `#btn2s4`);
+		//block4_substage4.style.color = `rgba(0, 145, 215, 1)`;
 		//block4_substage4.style.visibility = 'visible';
 	}
 }
 block4_substage4.onclick = ()=>{
 	PraporSkip = 1;
-	next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
-	block4_substage4.style.color = `red`;
+	//next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
+	//block4_substage4.style.color = `red`;
 	input_block2_substage4.value = '';
+	btn_use.setAttribute('xlink:href', `#btn2s4`);
+
+	next_btn.click();
 }
 
 div_block3_substage4.onclick = () => {
 	alert('Join Our Facebook Group');
 }
+
+
+
+//let lastScrollTop = spysok.scrollTop;
+
+spysok.addEventListener('scroll', (event) => {
+	//	const scrollTop = spysok.scrollTop;	//console.log(event.timeStamp);
+	if (spysok.scrollTop > 0) {
+	//console.log(spysok.scrollTop);		console.log(spysok.offsetHeight);
+		pusto_spysok.style.background =  `linear-gradient(to bottom,
+rgba(255, 255, 255, 0.9) 0%,
+rgba(255, 255, 255, 0.8) 4%,
+rgba(255, 255, 255, 0.7) 5%,
+rgba(255, 255, 255, 0.5) 6%,
+rgba(255, 255, 255, 0.3) 7%,
+rgba(255, 255, 255, 0.0) 8%,
+rgba(255, 255, 255, 0.0) 93%,
+rgba(255, 255, 255, 0.4) 94%,
+rgba(255, 255, 255, 0.7) 96%,
+rgba(255, 255, 255, 0.8) 98%,
+rgba(255, 255, 255, 0.9) 100%
+)`;
+		//console.log(pusto_spysok.style.background);
+	} else if (spysok.scrollTop < 10) {
+		pusto_spysok.style.background = `linear-gradient(to bottom,
+rgba(255, 255, 255, 0.0) 0%,
+rgba(255, 255, 255, 0.0) 4%,
+rgba(255, 255, 255, 0.0) 5%,
+rgba(255, 255, 255, 0.0) 6%,
+rgba(255, 255, 255, 0.0) 93%,
+rgba(255, 255, 255, 0.3) 94%,
+rgba(255, 255, 255, 0.5) 95%,
+rgba(255, 255, 255, 0.7) 96%,
+rgba(255, 255, 255, 0.8) 98%,
+rgba(255, 255, 255, 0.9) 100%
+)`;
+	}
+	//lastScrollTop = scrollTop;
+});
+
+
+
+function ScrollStage(element1, element2) {
+
+	if (element1.scrollTop > 0) {
+
+		element2.style.background = `linear-gradient(to bottom,
+rgba(255, 255, 255, 0.9) 0%,
+rgba(255, 255, 255, 0.8) 4%,
+rgba(255, 255, 255, 0.7) 5%,
+rgba(255, 255, 255, 0.5) 6%,
+rgba(255, 255, 255, 0.3) 7%,
+rgba(255, 255, 255, 0.0) 8%,
+rgba(255, 255, 255, 0.0) 93%,
+rgba(255, 255, 255, 0.4) 94%,
+rgba(255, 255, 255, 0.7) 96%,
+rgba(255, 255, 255, 0.8) 98%,
+rgba(255, 255, 255, 0.9) 100%
+)`;
+	} else if (element1.scrollTop < 10) {
+		element2.style.background = `linear-gradient(to bottom,
+rgba(255, 255, 255, 0.0) 0%,
+rgba(255, 255, 255, 0.0) 4%,
+rgba(255, 255, 255, 0.0) 5%,
+rgba(255, 255, 255, 0.0) 6%,
+rgba(255, 255, 255, 0.0) 93%,
+rgba(255, 255, 255, 0.3) 94%,
+rgba(255, 255, 255, 0.5) 95%,
+rgba(255, 255, 255, 0.7) 96%,
+rgba(255, 255, 255, 0.8) 98%,
+rgba(255, 255, 255, 0.9) 100%
+)`;
+
+	}
+
+
+}
+
+
+
+stage3_2.addEventListener('scroll', () => {
+	//console.log(stage3_2.scrollTop);
+	ScrollStage(stage3_2, pusto_spilne);
+});
+spilne.addEventListener('scroll', () => {
+	//console.log(spilne.scrollTop);
+	ScrollStage(spilne, pusto_spilne);
+});
+
+blok2_stage3_1.addEventListener('scroll', () => {
+	//console.log(spilne.scrollTop);
+	ScrollStage(blok2_stage3_1, pusto_blok2_stage3_1);
+});
+
+
 
