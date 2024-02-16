@@ -1238,6 +1238,7 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 	gE(element).addEventListener("touchmove", (event) => {
 		let dn = 0;
 		let nazva = '';
+		let goryzontZsuv = 0;
 		event.stopPropagation();
 		event.preventDefault();
 
@@ -1248,7 +1249,8 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 		startPositionY = event.touches[0].clientY;
 
 		gE(line_point).dataset.delta = deltaX;
-		if (deltaX < 0) {
+		if (deltaX < -10) {
+			goryzontZsuv = 1;
 			nomer_karusel.toLeft('transform 0.5s ease-in-out', 500, () => {
 				dn = parseInt(gE(line_point).dataset.nomer);
 				dn = (dn >= klas_karusel.length) ? 1 : dn + 1;
@@ -1259,7 +1261,8 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 			});
 		}
 		else
-		if (deltaX > 0) {
+		if (deltaX > 10) {
+			goryzontZsuv = 1;
 			nomer_karusel.toRight('transform 0.5s ease-in-out', 500, () => {
 				dn = parseInt(gE(line_point).dataset.nomer);
 				dn = (dn <= 1) ? 3 : dn - 1;
@@ -1270,16 +1273,16 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 		}
 //		console.log(`deltaY=${deltaY} deltaX=${deltaX}`);
 
-
-		if ((-1 * deltaY) > deltaX && deltaY < 0) {
-			blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + (-1 * deltaY);
-			//console.log(deltaY);
-		} else {
-			if (deltaY > deltaX && deltaY > 0) {
-				blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - deltaY;
+		if (goryzontZsuv == 0){
+			if ((-1 * deltaY) > deltaX && deltaY < 0) {
+				blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + (-1 * deltaY);
+				//console.log(deltaY);
+			} else {
+				if (deltaY > deltaX && deltaY > 0) {
+					blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - deltaY;
+				}
 			}
 		}
-
 
 	});
 
@@ -1307,8 +1310,7 @@ trackMouseMovement(`div3_tip3`, `btn3_karusel`, karusel3, span_karusel3);
 
 
 gE('main').addEventListener("touchstart", (event) => {
-	event.stopPropagation();
-	event.preventDefault();
+	//event.stopPropagation();	event.preventDefault();
 	mainstartPositionX = event.touches[0].clientX;
 	mainstartPositionY = event.touches[0].clientY;
 });
@@ -1317,8 +1319,8 @@ gE('main').addEventListener("touchstart", (event) => {
 gE('main').addEventListener("touchmove", (event) => {
 	let dn = 0;
 	let nazva = '';
-	event.stopPropagation();
-	event.preventDefault();
+
+	event.stopPropagation();	event.preventDefault();
 
 	const deltaX = event.touches[0].clientX - mainstartPositionX;
 	mainstartPositionX = event.touches[0].clientX;
@@ -1328,29 +1330,38 @@ gE('main').addEventListener("touchmove", (event) => {
 
 //	console.log(deltaY);
 	if (deltaY < 0) {
+
+		//main.scrollTop = main.scrollTop + (-1 * deltaY);
+
+		stage1.scrollTop = stage1.scrollTop + (-1 * deltaY);
+		substage1.scrollTop = substage1.scrollTop + (-1 * deltaY);
+
+
 		blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + (-1*deltaY);
 
 		spilne.scrollTop = spilne.scrollTop + (-1 * deltaY);
 
 		spysok.scrollTop = spysok.scrollTop + (-1 * deltaY);
 
-		stage1.scrollTop = stage1.scrollTop + (-1 * deltaY);
-		substage1.scrollTop = substage1.scrollTop + (-1 * deltaY);
 
 
 //		console.log(deltaY);
 	} else {
 		if (deltaY > 0) {
 	//		console.log(deltaY);
+
+			//main.scrollTop = main.scrollTop - deltaY;
+
+			stage1.scrollTop = stage1.scrollTop - deltaY;
+			substage1.scrollTop = substage1.scrollTop - deltaY;
+
+
 			blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - deltaY;
 
 			spilne.scrollTop = spilne.scrollTop - deltaY;
 
 			spysok.scrollTop = spysok.scrollTop - deltaY;
 
-			stage1.scrollTop = stage1.scrollTop - deltaY;
-
-			substage1.scrollTop = substage1.scrollTop - deltaY;
 
 
 		}
@@ -1361,8 +1372,7 @@ gE('main').addEventListener("touchmove", (event) => {
 
 
 gE('main').addEventListener("touchend", (event) => {
-	event.stopPropagation();
-	event.preventDefault();
+	//event.stopPropagation();	event.preventDefault();
 	mainstartPositionX = undefined;
 	mainstartPositionY = undefined;
 });
