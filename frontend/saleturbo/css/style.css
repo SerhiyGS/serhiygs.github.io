@@ -785,22 +785,6 @@ background: linear-gradient(to bottom,
 	}
 
 
-#spilne {
-	overflow-y: scroll;
-}
-
-#spilne::-webkit-scrollbar {
-	width: 0.05em;
-}
-
-#spilne::-webkit-scrollbar-thumb {
-	background-color: transparent;
-}
-
-#spilne::-webkit-scrollbar-track {
-	background-color: transparent;
-}
-
 /*
 
 #spilne::after {
@@ -1177,6 +1161,33 @@ margin-top: -10px;
 
 /*	border: 1px solid red;*/
 }
+/*
+#spilne {
+	overflow-y: scroll;
+}
+*/
+#spilne::-webkit-scrollbar {
+	width: 0.05em;
+}
+
+#spilne::-webkit-scrollbar-thumb {
+	background-color: transparent;
+}
+
+#spilne::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 #stage3_2::-webkit-scrollbar
