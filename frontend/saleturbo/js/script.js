@@ -1412,44 +1412,6 @@ gE('main').addEventListener("touchend", (event) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 gE('span1_btn1_karusel').onclick = function (){
 	span_karusel1.forEach((nk) => { nk.style.background = `url('./images/point_s.svg') center/cover no-repeat`;});
 	this.style.background = `url('./images/point_b.svg') center/cover no-repeat`;
