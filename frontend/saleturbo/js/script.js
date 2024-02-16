@@ -230,6 +230,10 @@ var startPositionX;
 var startPositionY;
 
 
+var mainstartPositionX;
+var mainstartPositionY;
+
+
 //'358px', '287px',
 
 
@@ -470,14 +474,14 @@ const AutoHod = () => {
 			setTimeout(() => {
 				gE('next_btn').click();//На сторінку 3_2
 				setTimeout(() => {
-					gE('next_btn').click();//На сторінку 3_3
+//					gE('next_btn').click();//На сторінку 3_3
 					setTimeout(() => {
-						gE('next_btn').click();//На сторінку 4
+//						gE('next_btn').click();//На сторінку 4
 							setTimeout(() => {
 								input_block2_substage4.value = 'test01@gmail.com';
 								PraporSkip = 1;
 								setTimeout(() => {
-									gE('next_btn').click();//На сторінку 5
+//									gE('next_btn').click();//На сторінку 5
 								}, 100);
 							}, 2000);
 						}, 2000);
@@ -622,7 +626,12 @@ back_btn.onclick = () => {
 			fadeIn(stage3_3);
 			setTimeout(() => {
 				stage3_3.style.display = 'none';
+
 				stage3_2.style.display = 'block';
+
+				//stage3_2.style.display = 'flex';
+
+
 				fadeIn(stage3_2);
 				//next_btn.style.background = `url('./images/next3_2.svg') center/cover no-repeat`;
 				btn_use.setAttribute('xlink:href', `#btn3_2`);
@@ -929,7 +938,12 @@ next_btn.onclick = () => {
 				setTimeout(() => {
 					stage3_1.style.display = 'none';
 					//stage3_2.style.display = 'flex';
+
 					stage3_2.style.display = 'block';
+
+					//stage3_2.style.display = 'flex';
+
+
 
 					fadeIn(stage3_2);
 
@@ -938,11 +952,21 @@ next_btn.onclick = () => {
 
 				// --------------------------------------------------------------------------------------------------------------------
 					if (isMobileDevice()) {
+
+//						blok1_stage3_2.style.border = `1px solid red`;
+
+						stage3_2.style.overflowY = `scroll`;
+
 						substage3_2.style.width = `375px`;
+						substage3_2.style.marginLeft = `8px`;
+
+						substage3_2.style.overflowY = `scroll`;
+
 						//substage3_2.style.height = `572px`;
 						substage3_2.style.justifyContent = `flex-start`;
 
-						blok1_stage3_2.style.marginTop = `24px`
+						blok1_stage3_2.style.marginTop = `0px`
+
 						blok1_stage3_2.style.marginBottom = `6px`;
 						blok1_stage3_2.style.width = `326px`; blok1_stage3_2.style.height = `150px`;
 						blok1_stage3_2.style.justifyContent = `flex-start`;
@@ -962,8 +986,11 @@ next_btn.onclick = () => {
 						block1_block1_block_substage3_3.style.width = `300px`;
 
 
-						blok2_stage3_2.style.marginTop = `14px`;
-						blok2_stage3_2.style.width = `326px`; blok2_stage3_2.style.height = `48px`;
+						blok2_stage3_2.style.marginTop = `10px`;
+						blok2_stage3_2.style.padding = `10px`;
+
+						blok2_stage3_2.style.width = `326px`;
+						blok2_stage3_2.style.height = `48px`;
 
 						grafik.style.width = `20px`; grafik.style.height = `20px`;
 						zmist_grafik.style.width = `264px`; zmist_grafik.style.height = `32px`;
@@ -977,9 +1004,10 @@ next_btn.onclick = () => {
 
 						//spilne.style.paddingBottom = `50dvmin`;
 
+						blok3_stage3_2.style.marginTop = `15px`;
 
-
-						blok3_stage3_2.style.width = `326px`; blok3_stage3_2.style.height = `auto`;
+						blok3_stage3_2.style.width = `326px`;
+						blok3_stage3_2.style.height = `auto`;
 						blok3_stage3_2.style.alignItems = `flex-start`;
 						blok3_stage3_2.style.flexWrap = `wrap`;
 						blok3_stage3_2.style.gap = `10px`;
@@ -1014,6 +1042,18 @@ next_btn.onclick = () => {
 						lampa.style.width = `24px`; lampa.style.height = `24px`;
 						zmist_lampa.style.width = `260px`; zmist_lampa.style.height = `32px`;
 					} else {//Desktop
+
+						blok1_stage3_2.style.marginTop = `14px`
+
+						blok1_stage3_2.style.marginBottom = `6px`;
+
+						blok2_stage3_2.style.marginTop = `10px`;
+						blok2_stage3_2.style.padding = `10px`;
+
+						blok3_stage3_2.style.marginTop = `20px`;
+
+
+
 					}
 // ---------------------------------------------------------------------------------------------------------------------
 				}, 500);
@@ -1228,17 +1268,21 @@ function trackMouseMovement(element, line_point, nomer_karusel, klas_karusel) {
 				gE(`span${dn}_${line_point}`).style.background = `url('./images/point_b.svg') center/cover no-repeat`;
 			});
 		}
+//		console.log(`deltaY=${deltaY} deltaX=${deltaX}`);
 
-		if (deltaY < -10) {
-			blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + 10;
+
+		if ((-1 * deltaY) > deltaX && deltaY < 0) {
+			blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + (-1 * deltaY);
 			//console.log(deltaY);
 		} else {
-			if (deltaY > 10) {
-				blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - 10;
+			if (deltaY > deltaX && deltaY > 0) {
+				blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - deltaY;
 			}
 		}
 
+
 	});
+
 	gE(element).addEventListener("touchend", (event) => {
 		event.stopPropagation();
 		event.preventDefault();
@@ -1257,6 +1301,113 @@ document.addEventListener("mouseup", () => {
 trackMouseMovement(`div3_tip1`, `btn1_karusel`, karusel1, span_karusel1);
 trackMouseMovement(`div3_tip2`, `btn2_karusel`, karusel2, span_karusel2);
 trackMouseMovement(`div3_tip3`, `btn3_karusel`, karusel3, span_karusel3);
+
+
+
+
+
+gE('main').addEventListener("touchstart", (event) => {
+	event.stopPropagation();
+	event.preventDefault();
+	mainstartPositionX = event.touches[0].clientX;
+	mainstartPositionY = event.touches[0].clientY;
+});
+
+
+gE('main').addEventListener("touchmove", (event) => {
+	let dn = 0;
+	let nazva = '';
+	event.stopPropagation();
+	event.preventDefault();
+
+	const deltaX = event.touches[0].clientX - mainstartPositionX;
+	mainstartPositionX = event.touches[0].clientX;
+
+	const deltaY = event.touches[0].clientY - mainstartPositionY;
+	mainstartPositionY = event.touches[0].clientY;
+
+//	console.log(deltaY);
+	if (deltaY < 0) {
+		blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop + (-1*deltaY);
+
+		spilne.scrollTop = spilne.scrollTop + (-1 * deltaY);
+
+		spysok.scrollTop = spysok.scrollTop + (-1 * deltaY);
+
+		stage1.scrollTop = stage1.scrollTop + (-1 * deltaY);
+		substage1.scrollTop = substage1.scrollTop + (-1 * deltaY);
+
+
+//		console.log(deltaY);
+	} else {
+		if (deltaY > 0) {
+	//		console.log(deltaY);
+			blok2_stage3_1.scrollTop = blok2_stage3_1.scrollTop - deltaY;
+
+			spilne.scrollTop = spilne.scrollTop - deltaY;
+
+			spysok.scrollTop = spysok.scrollTop - deltaY;
+
+			stage1.scrollTop = stage1.scrollTop - deltaY;
+
+			substage1.scrollTop = substage1.scrollTop - deltaY;
+
+
+		}
+	}
+
+});
+
+
+
+gE('main').addEventListener("touchend", (event) => {
+	event.stopPropagation();
+	event.preventDefault();
+	mainstartPositionX = undefined;
+	mainstartPositionY = undefined;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 gE('span1_btn1_karusel').onclick = function (){
@@ -1374,17 +1525,19 @@ spysok.addEventListener('scroll', (event) => {
 	if (spysok.scrollTop > 0) {
 	//console.log(spysok.scrollTop);		console.log(spysok.offsetHeight);
 		pusto_spysok.style.background =  `linear-gradient(to bottom,
-rgba(255, 255, 255, 0.9) 0%,
-rgba(255, 255, 255, 0.8) 4%,
-rgba(255, 255, 255, 0.7) 5%,
+rgba(255, 255, 255, 1.0) 0%,
+rgba(255, 255, 255, 0.9) 4%,
+rgba(255, 255, 255, 0.8) 5%,
 rgba(255, 255, 255, 0.5) 6%,
 rgba(255, 255, 255, 0.3) 7%,
 rgba(255, 255, 255, 0.0) 8%,
+
+
 rgba(255, 255, 255, 0.0) 93%,
 rgba(255, 255, 255, 0.4) 94%,
 rgba(255, 255, 255, 0.7) 96%,
-rgba(255, 255, 255, 0.8) 98%,
-rgba(255, 255, 255, 0.9) 100%
+rgba(255, 255, 255, 0.9) 98%,
+rgba(255, 255, 255, 1.0) 100%
 )`;
 		//console.log(pusto_spysok.style.background);
 	} else if (spysok.scrollTop < 10) {
@@ -1393,12 +1546,16 @@ rgba(255, 255, 255, 0.0) 0%,
 rgba(255, 255, 255, 0.0) 4%,
 rgba(255, 255, 255, 0.0) 5%,
 rgba(255, 255, 255, 0.0) 6%,
-rgba(255, 255, 255, 0.0) 93%,
-rgba(255, 255, 255, 0.3) 94%,
-rgba(255, 255, 255, 0.5) 95%,
-rgba(255, 255, 255, 0.7) 96%,
-rgba(255, 255, 255, 0.8) 98%,
-rgba(255, 255, 255, 0.9) 100%
+
+rgba(255, 255, 255, 0.0) 90%,
+rgba(255, 255, 255, 0.4) 91%,
+rgba(255, 255, 255, 0.5) 92%,
+rgba(255, 255, 255, 0.6) 93%,
+rgba(255, 255, 255, 0.7) 94%,
+rgba(255, 255, 255, 0.8) 95%,
+rgba(255, 255, 255, 0.8) 96%,
+rgba(255, 255, 255, 0.9) 98%,
+rgba(255, 255, 255, 1.0) 100%
 )`;
 	}
 	//lastScrollTop = scrollTop;
@@ -1409,7 +1566,7 @@ rgba(255, 255, 255, 0.9) 100%
 function ScrollStage(element1, element2) {
 
 	if (element1.scrollTop > 0) {
-
+/*
 		element2.style.background = `linear-gradient(to bottom,
 rgba(255, 255, 255, 0.9) 0%,
 rgba(255, 255, 255, 0.8) 4%,
@@ -1423,7 +1580,60 @@ rgba(255, 255, 255, 0.7) 96%,
 rgba(255, 255, 255, 0.8) 98%,
 rgba(255, 255, 255, 0.9) 100%
 )`;
+*/
+/*
+
+rgba(255, 255, 255, 1.0) 0%,
+rgba(255, 255, 255, 0.9) 4%,
+rgba(255, 255, 255, 0.8) 5%,
+rgba(255, 255, 255, 0.5) 6%,
+rgba(255, 255, 255, 0.3) 7%,
+rgba(255, 255, 255, 0.0) 8%,
+
+
+
+*/
+
+
+		element2.style.background = `linear-gradient(to bottom,
+rgba(255, 255, 255, 0.0) 0%,
+rgba(255, 255, 255, 0.0) 4%,
+rgba(255, 255, 255, 0.0) 5%,
+rgba(255, 255, 255, 0.0) 6%,
+rgba(255, 255, 255, 0.0) 7%,
+rgba(255, 255, 255, 0.0) 8%,
+
+
+rgba(255, 255, 255, 0.0) 93%,
+rgba(255, 255, 255, 0.4) 94%,
+rgba(255, 255, 255, 0.7) 96%,
+rgba(255, 255, 255, 0.9) 98%,
+rgba(255, 255, 255, 1.0) 100%
+)`;
+
+
+
 	} else if (element1.scrollTop < 10) {
+		element2.style.background = `linear-gradient(to bottom,
+rgba(255, 255, 255, 0.0) 0%,
+rgba(255, 255, 255, 0.0) 4%,
+rgba(255, 255, 255, 0.0) 5%,
+rgba(255, 255, 255, 0.0) 6%,
+
+rgba(255, 255, 255, 0.0) 90%,
+rgba(255, 255, 255, 0.4) 91%,
+rgba(255, 255, 255, 0.5) 92%,
+rgba(255, 255, 255, 0.6) 93%,
+rgba(255, 255, 255, 0.7) 94%,
+rgba(255, 255, 255, 0.8) 95%,
+rgba(255, 255, 255, 0.8) 96%,
+rgba(255, 255, 255, 0.9) 98%,
+rgba(255, 255, 255, 1.0) 100%
+)`;
+
+
+
+/*
 		element2.style.background = `linear-gradient(to bottom,
 rgba(255, 255, 255, 0.0) 0%,
 rgba(255, 255, 255, 0.0) 4%,
@@ -1436,9 +1646,9 @@ rgba(255, 255, 255, 0.7) 96%,
 rgba(255, 255, 255, 0.8) 98%,
 rgba(255, 255, 255, 0.9) 100%
 )`;
+*/
 
 	}
-
 
 }
 
@@ -1455,7 +1665,7 @@ spilne.addEventListener('scroll', () => {
 
 blok2_stage3_1.addEventListener('scroll', () => {
 	//console.log(spilne.scrollTop);
-	ScrollStage(blok2_stage3_1, pusto_blok2_stage3_1);
+	//ScrollStage(blok2_stage3_1, pusto_blok2_stage3_1);
 });
 
 
