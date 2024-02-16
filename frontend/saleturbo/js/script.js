@@ -1002,6 +1002,10 @@ next_btn.onclick = () => {
 						//spilne.style.overflowY = `scroll`;
 						spilne.style.overflowX = 'hidden';
 
+						//spilne.style.margin = `0 auto`;
+						//spilne.style.justifySelf = `center`;
+
+
 						//spilne.style.paddingBottom = `50dvmin`;
 
 						blok3_stage3_2.style.marginTop = `15px`;
@@ -1041,6 +1045,13 @@ next_btn.onclick = () => {
 						blok4_stage3_2.style.width = `326px`; blok4_stage3_2.style.height = `48px`;
 						lampa.style.width = `24px`; lampa.style.height = `24px`;
 						zmist_lampa.style.width = `260px`; zmist_lampa.style.height = `32px`;
+
+
+
+						substage3_2.style.margin = `0 auto`;
+
+
+
 					} else {//Desktop
 
 						blok1_stage3_2.style.marginTop = `14px`
@@ -1344,6 +1355,16 @@ gE('main').addEventListener("touchmove", (event) => {
 		spysok.scrollTop = spysok.scrollTop + (-1 * deltaY);
 
 
+		stage3_3.scrollTop = stage3_3.scrollTop + (-1 * deltaY);
+		substage3_3.scrollTop = substage3_3.scrollTop + (-1 * deltaY);
+
+		stage4.scrollTop = stage4.scrollTop + (-1 * deltaY);
+		substage4.scrollTop = substage4.scrollTop + (-1 * deltaY);
+
+		stage5.scrollTop = stage5.scrollTop + (-1 * deltaY);
+		substage5.scrollTop = substage5.scrollTop + (-1 * deltaY);
+
+
 
 //		console.log(deltaY);
 	} else {
@@ -1361,6 +1382,15 @@ gE('main').addEventListener("touchmove", (event) => {
 			spilne.scrollTop = spilne.scrollTop - deltaY;
 
 			spysok.scrollTop = spysok.scrollTop - deltaY;
+
+			stage3_3.scrollTop = stage3_3.scrollTop - deltaY;
+			substage3_3.scrollTop = substage3_3.scrollTop - deltaY;
+
+			stage4.scrollTop = stage4.scrollTop - deltaY;
+			substage4.scrollTop = substage4.scrollTop - deltaY;
+
+			stage5.scrollTop = stage5.scrollTop - deltaY;
+			substage5.scrollTop = substage5.scrollTop - deltaY;
 
 
 
