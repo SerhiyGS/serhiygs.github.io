@@ -478,7 +478,7 @@ const AutoHod = () => {
 					setTimeout(() => {
 //						gE('next_btn').click();//На сторінку 4
 							setTimeout(() => {
-								input_block2_substage4.value = 'test01@gmail.com';
+								input_block2_substage4.value = 'Any content';
 								PraporSkip = 1;
 								setTimeout(() => {
 //									gE('next_btn').click();//На сторінку 5
@@ -1477,21 +1477,24 @@ gE('span3_btn3_karusel').onclick = function () {
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 input_block2_substage4.onblur = (event) => {
-	if (event.target.value !== '' && emailRegex.test(event.target.value) === false) {
+//	if (event.target.value !== '' && emailRegex.test(event.target.value) === false) {
+	if (event.target.value !== '') {
 		event.target.focus();
 	}
 }
 input_block2_substage4.onkeydown = (event)=> {
 	let emailValue = event.target.value;
 	if (event.key === 'Tab') {
-		if (emailValue.trim() !== '' && !emailRegex.test(event.target.value)) {
+		//if (emailValue.trim() !== '' && !emailRegex.test(event.target.value)) {
+		if (emailValue.trim() !== '') {
 			event.preventDefault();
 		}
 	}
 }
 input_block2_substage4.onkeyup = (event) => {
 	let emailValue = event.target.value;
-	if (emailValue.trim() !== '' && emailRegex.test(event.target.value)) {
+	//if (emailValue.trim() !== '' && emailRegex.test(event.target.value)) {
+	if (emailValue.trim() !== '') {
 		PraporSkip = 1;
 		//next_btn.style.background = `url('./images/next4b.svg') center/cover no-repeat`;
 		btn_use.setAttribute('xlink:href', `#btn2b4`);
